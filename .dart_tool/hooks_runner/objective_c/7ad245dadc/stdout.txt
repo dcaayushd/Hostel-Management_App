@@ -1,0 +1,62 @@
+Running `(cd /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/; TMPDIR=/var/folders/4r/9ykwrfm151d1zxcn91fw3_fc0000gp/T/ PATH=/Users/dcaayushd/.codex/tmp/arg0/codex-arg0yC1gRm:/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/opt/openjdk/bin:/Users/dcaayushd/.nvm/versions/node/v24.12.0/bin:/Library/Frameworks/Python.framework/Versions/3.13/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pmk/env/global/bin:/Library/Apple/usr/bin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/share/dotnet:~/.dotnet/tools:/Users/dcaayushd/Development/Flutter_Dev/sdk/flutter/bin:/usr/local/mysql-8.0.32-macos13-arm64/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Users/dcaayushd/.pub-cache/bin:/Users/dcaayushd/mongodb-macos-aarch64-8.0.4/bin:/Users/dcaayushd/.vscode/extensions/openai.chatgpt-26.304.20706-darwin-arm64/bin/macos-aarch64 HOME=/Users/dcaayushd /Users/dcaayushd/Development/Flutter_Dev/sdk/flutter/bin/cache/dart-sdk/bin/dart '--packages=/Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/package_config.json' '/Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/objective_c/7ad245dadc/hook.dill' '--config=/Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/objective_c/7ad245dadc/input.json' )`.
+INFO: 2026-03-12 09:07:20.897155: Running `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang --version`.
+
+INFO: 2026-03-12 09:07:20.916172: Running `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang --version`.
+
+INFO: 2026-03-12 09:07:20.931792: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/include/dart_api_dl.c -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/include/dart_api_dl.c.o
+
+INFO: 2026-03-12 09:07:20.932310: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/objective_c.c -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.c.o
+
+INFO: 2026-03-12 09:07:20.932748: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/test/util.c -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/test/util.c.o
+
+INFO: 2026-03-12 09:07:20.932989: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/input_stream_adapter.m -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/input_stream_adapter.m.o
+
+INFO: 2026-03-12 09:07:20.933134: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/objective_c.m -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.m.o
+
+INFO: 2026-03-12 09:07:20.933489: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/ns_number.m -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/ns_number.m.o
+
+INFO: 2026-03-12 09:07:20.933605: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/protocol.m -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/protocol.m.o
+
+INFO: 2026-03-12 09:07:20.933719: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 -x objective-c -fobjc-arc -c /Users/dcaayushd/.pub-cache/hosted/pub.dev/objective_c-9.3.0/src/objective_c_bindings_generated.m -fpic -I src -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c_bindings_generated.m.o
+
+INFO: 2026-03-12 09:07:21.040741: 
+INFO: 2026-03-12 09:07:21.040836: 
+INFO: 2026-03-12 09:07:21.040890: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/include/dart_api_dl.c.o
+
+INFO: 2026-03-12 09:07:21.041142: 
+INFO: 2026-03-12 09:07:21.041280: 
+INFO: 2026-03-12 09:07:21.041293: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/observer.m.o
+INFO: 2026-03-12 09:07:21.041368: 
+INFO: 2026-03-12 09:07:21.041382: 
+INFO: 2026-03-12 09:07:21.041392: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.c.o
+
+INFO: 2026-03-12 09:07:21.041486: 
+INFO: 2026-03-12 09:07:21.041592: 
+INFO: 2026-03-12 09:07:21.041613: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/test/util.c.o
+
+INFO: 2026-03-12 09:07:21.042205: 
+INFO: 2026-03-12 09:07:21.042230: 
+INFO: 2026-03-12 09:07:21.042240: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/protocol.m.o
+
+INFO: 2026-03-12 09:07:21.323094: 
+INFO: 2026-03-12 09:07:21.323139: 
+INFO: 2026-03-12 09:07:21.323151: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/ns_number.m.o
+
+INFO: 2026-03-12 09:07:21.331513: 
+INFO: 2026-03-12 09:07:21.331550: 
+INFO: 2026-03-12 09:07:21.331562: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.m.o
+
+INFO: 2026-03-12 09:07:21.332168: 
+INFO: 2026-03-12 09:07:21.332188: 
+INFO: 2026-03-12 09:07:21.332201: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/input_stream_adapter.m.o
+
+INFO: 2026-03-12 09:07:21.349236: 
+INFO: 2026-03-12 09:07:21.349273: 
+INFO: 2026-03-12 09:07:21.349288: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c_bindings_generated.m.o
+
+INFO: 2026-03-12 09:07:21.349646: Running: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -shared -Wl,-encryptable -undefined dynamic_lookup -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk -target arm64-apple-darwin -mmacos-version-min=13 /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/include/dart_api_dl.c.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.c.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/test/util.c.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/input_stream_adapter.m.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c.m.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/observer.m.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/ns_number.m.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/protocol.m.o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/obj/src/objective_c_bindings_generated.m.o -o /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/objective_c.dylib
+
+INFO: 2026-03-12 09:07:21.392918: 
+INFO: 2026-03-12 09:07:21.392984: 
+INFO: 2026-03-12 09:07:21.392998: Generated /Users/dcaayushd/Development/Flutter_Dev/Flutter Projects/Hostel-Management_App/.dart_tool/hooks_runner/shared/objective_c/build/7ad245dadc/objective_c.dylib
+
