@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hostel_management_app/common/constants.dart';
 import 'package:hostel_management_app/common/spacing.dart';
 import 'package:hostel_management_app/features/admin/screens/create_staff_screen.dart';
+import 'package:hostel_management_app/features/admin/screens/room_change_request_screen.dart';
 import 'package:hostel_management_app/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_app/features/home/widgets/category_card.dart';
 import 'package:hostel_management_app/features/student/screens/create_issue_screen.dart';
@@ -230,7 +231,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       CategoryCard(
                         category: 'Change\nRequests',
                         image: AppConstants.roomChange,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) =>
+                                  const RoomChangeRequestScreen(),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
