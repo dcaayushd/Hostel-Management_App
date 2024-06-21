@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_app/features/auth/screens/login_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,9 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Hostel App',
+    return const ScreenUtilInit(
+      splitScreenMode: true,
+      useInheritedMediaQuery: true,
+      designSize: Size(375, 825),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Hostel App',
+        home: LoginScreen(),
+      ),
     );
   }
 }
