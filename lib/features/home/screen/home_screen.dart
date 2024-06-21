@@ -8,6 +8,7 @@ import 'package:hostel_management_app/features/admin/screens/create_staff_screen
 import 'package:hostel_management_app/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_app/features/home/widgets/category_card.dart';
 import 'package:hostel_management_app/features/student/screens/create_issue_screen.dart';
+import 'package:hostel_management_app/features/student/screens/room_availability_screen.dart';
 import 'package:hostel_management_app/theme/colors.dart';
 import 'package:hostel_management_app/theme/text_theme.dart';
 
@@ -95,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         heightSpacer(15),
                         Text(
-                          'Room No.: 412',
+                          'Room No.: 413',
                           style: TextStyle(
                             // fontWeight: FontWeight.w700,
                             color: const Color(0xff333333),
@@ -166,7 +167,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       CategoryCard(
                         category: 'Room\nAvailability',
                         image: AppConstants.roomAvailability,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) =>
+                                  const RoomAvailabilityScreen(),
+                            ),
+                          );
+                        },
                       ),
                       CategoryCard(
                         category: 'All\nIssues',
