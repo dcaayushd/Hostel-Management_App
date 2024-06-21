@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hostel_management_app/common/constants.dart';
 import 'package:hostel_management_app/common/spacing.dart';
 import 'package:hostel_management_app/features/home/widgets/category_card.dart';
+import 'package:hostel_management_app/features/student/screens/create_issue_screen.dart';
 import 'package:hostel_management_app/theme/colors.dart';
 import 'package:hostel_management_app/theme/text_theme.dart';
 
@@ -112,7 +112,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     widthSpacer(10),
                     Column(
                       children: [
-                        SvgPicture.asset(AppConstants.createIssue),
+                        InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const StudentCreateIssueScreen(),
+                                ),
+                              );
+                            },
+                            child: SvgPicture.asset(AppConstants.createIssue)),
                         Text(
                           'Create Issues',
                           style: TextStyle(

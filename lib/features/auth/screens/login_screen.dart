@@ -1,10 +1,9 @@
 // import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../home/screen/home_screen.dart';
+// import '../../home/screen/home_screen.dart';
 import '../../../features/auth/screens/register_screen.dart';
 
 import '../../../theme/colors.dart';
@@ -122,11 +121,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     // if (_formKey.currentState!.validate()) {
                     //   log('validation');
                     // }
-                    Navigator.push(
+                    // Navigator.push(
+                    //   context,
+                    //   CupertinoPageRoute(
+                    //     builder: (context) => const HomeScreen(),
+                    //   ),
+                    // );
+                    Navigator.pushNamedAndRemoveUntil(
                       context,
-                      CupertinoPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
+                      '/home',
+                      (Route<dynamic> route) => false,
                     );
                   },
                 ),
