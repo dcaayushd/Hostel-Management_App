@@ -12,6 +12,8 @@ import 'package:hostel_management_app/features/student/screens/room_availability
 import 'package:hostel_management_app/theme/colors.dart';
 import 'package:hostel_management_app/theme/text_theme.dart';
 
+import '../../admin/screens/issue_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -117,16 +119,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     Column(
                       children: [
                         InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                CupertinoPageRoute(
-                                  builder: (context) =>
-                                      const StudentCreateIssueScreen(),
-                                ),
-                              );
-                            },
-                            child: SvgPicture.asset(AppConstants.createIssue)),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              CupertinoPageRoute(
+                                builder: (context) =>
+                                    const StudentCreateIssueScreen(),
+                              ),
+                            );
+                          },
+                          child: SvgPicture.asset(AppConstants.createIssue),
+                        ),
                         Text(
                           'Create Issues',
                           style: TextStyle(
@@ -180,7 +183,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       CategoryCard(
                         category: 'All\nIssues',
                         image: AppConstants.allIssues,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const IssueScreen(),
+                            ),
+                          );
+                        },
                       ),
                       CategoryCard(
                         category: 'Staff\nMembers',
