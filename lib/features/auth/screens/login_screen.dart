@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hostel_management_app/features/auth/screens/register_screen.dart';
 import 'package:hostel_management_app/theme/colors.dart';
 import 'package:hostel_management_app/theme/text_theme.dart';
 
@@ -34,11 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
+          padding: EdgeInsets.symmetric(
+            horizontal: 15.w,
+            vertical: 20.h,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
                   child: Image.asset(
@@ -52,13 +58,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Text(
                     'Login to your account',
                     style: TextStyle(
-                      fontSize: 25.sp,
+                      fontSize: 20.sp,
                       color: const Color(0xff333333),
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
                 heightSpacer(25),
+                Text(
+                  'Email',
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
                 CustomTextField(
                   controller: email,
                   enabledBorder: OutlineInputBorder(
@@ -68,8 +79,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   inputHint: 'Enter your email',
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Email is required';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
-                heightSpacer(30),
+                heightSpacer(20),
+                Text(
+                  'Password',
+                  style: AppTextTheme.kLabelStyle,
+                ),
+                heightSpacer(15),
                 CustomTextField(
                   controller: password,
                   enabledBorder: OutlineInputBorder(
@@ -79,12 +102,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   inputHint: 'Enter your password',
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Password is required';
+                    } else {
+                      return null;
+                    }
+                  },
                 ),
                 heightSpacer(30),
                 CustomButton(
                   buttonText: 'Login',
                   buttonColor: Colors.white,
-                  onTap: () {},
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      log('validation');
+                    }
+                  },
                 ),
                 heightSpacer(10),
                 Row(
@@ -94,6 +128,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     InkWell(
                       onTap: () {
                         // Register Screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
                       },
                       child: Text(
                         'Register',

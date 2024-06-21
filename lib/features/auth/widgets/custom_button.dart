@@ -18,18 +18,21 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      height: 50.h,
-      decoration: BoxDecoration(
-        color: const Color(0xff2e8b57),
-        borderRadius: BorderRadius.circular(14.r),
-      ),
-      child: Center(
-        child: Text(
-          buttonText,
-          style: AppTextTheme.kLabelStyle.copyWith(
-              color: buttonColor ?? AppColors.kLight, fontSize: size ?? 16),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.maxFinite,
+        height: 50.h,
+        decoration: BoxDecoration(
+          color: const Color(0xff2e8b57),
+          borderRadius: BorderRadius.circular(14.r),
+        ),
+        child: Center(
+          child: Text(
+            buttonText,
+            style: AppTextTheme.kLabelStyle.copyWith(
+                color: buttonColor ?? AppColors.kLight, fontSize: size ?? 16),
+          ),
         ),
       ),
     );
