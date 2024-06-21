@@ -1,10 +1,14 @@
-import 'dart:developer';
+// import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/features/auth/screens/register_screen.dart';
-import 'package:hostel_management_app/theme/colors.dart';
-import 'package:hostel_management_app/theme/text_theme.dart';
+
+import '../../home/screen/home_screen.dart';
+import '../../../features/auth/screens/register_screen.dart';
+
+import '../../../theme/colors.dart';
+import '../../../theme/text_theme.dart';
 
 import '/common/constants.dart';
 import '/common/custom_text_field.dart';
@@ -115,9 +119,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   buttonText: 'Login',
                   buttonColor: Colors.white,
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      log('validation');
-                    }
+                    // if (_formKey.currentState!.validate()) {
+                    //   log('validation');
+                    // }
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
                   },
                 ),
                 heightSpacer(10),

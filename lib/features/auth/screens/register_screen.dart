@@ -1,14 +1,14 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/common/spacing.dart';
-import 'package:hostel_management_app/features/auth/screens/login_screen.dart';
-import 'package:hostel_management_app/theme/colors.dart';
 
+import '../../../common/spacing.dart';
 import '../../../common/constants.dart';
 import '../../../common/custom_text_field.dart';
+
 import '../../../theme/text_theme.dart';
+import '../../../theme/colors.dart';
+
 import '../widgets/custom_button.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -385,36 +385,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onTap: () {
                     log('$selectedBlock');
                     log('$selectedRoom');
-                    if (_formKey.currentState!.validate()) {
-                      log('validation');
-                    }
+                    // if (_formKey.currentState!.validate()) {
+                    //   log('validation');
+                    // }
+
+                    
                   },
                 ),
-                heightSpacer(10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Have an account? '),
-                    InkWell(
-                      onTap: () {
-                        // Login Screen
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        'Login',
-                        style: AppTextTheme.kLabelStyle.copyWith(
-                          fontSize: 14.sp,
-                          color: AppColors.kGreenColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // heightSpacer(10),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     const Text('Have an account? '),
+                //     InkWell(
+                //       onTap: () {
+                //         // Login Screen
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //             builder: (context) => const LoginScreen(),
+                //           ),
+                //         );
+                //       },
+                //       child: Text(
+                //         'Login',
+                //         style: AppTextTheme.kLabelStyle.copyWith(
+                //           fontSize: 14.sp,
+                //           color: AppColors.kGreenColor,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
