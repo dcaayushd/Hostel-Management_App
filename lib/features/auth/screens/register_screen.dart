@@ -272,6 +272,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     }
                   },
                 ),
+                heightSpacer(15),
                 Text(
                   'Phone Number',
                   style: AppTextTheme.kLabelStyle,
@@ -388,8 +389,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     // if (_formKey.currentState!.validate()) {
                     //   log('validation');
                     // }
-
-                    
                   },
                 ),
                 // heightSpacer(10),

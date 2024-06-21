@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hostel_management_app/common/constants.dart';
 import 'package:hostel_management_app/common/spacing.dart';
+import 'package:hostel_management_app/features/admin/screens/create_staff_screen.dart';
 import 'package:hostel_management_app/features/home/widgets/category_card.dart';
 import 'package:hostel_management_app/features/student/screens/create_issue_screen.dart';
 import 'package:hostel_management_app/theme/colors.dart';
@@ -116,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   builder: (context) =>
                                       const StudentCreateIssueScreen(),
                                 ),
@@ -184,7 +186,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       CategoryCard(
                         category: 'Create\nStaff',
                         image: AppConstants.createStaff,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const CreateStaffScreen(),
+                            ),
+                          );
+                        },
                       ),
                       CategoryCard(
                         category: 'Hostel\nFees',
