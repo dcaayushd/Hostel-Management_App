@@ -49,7 +49,7 @@ class RequestCard extends StatelessWidget {
                 begin: const Alignment(0.00, -1.00),
                 end: const Alignment(0, 1),
                 colors: [
-                  const Color(0xff2e8b57).withOpacity(0.5),
+                  const Color(0xFF2e8b57).withOpacity(0.5),
                   const Color(0x002e8857),
                 ],
               ),

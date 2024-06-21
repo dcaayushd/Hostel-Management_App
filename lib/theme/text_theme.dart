@@ -39,7 +39,7 @@ class AppTextTheme {
   );
 
   static TextStyle dmTextStyle = GoogleFonts.poppins(
-    color: const Color(0xff9091AD),
+    color: const Color(0xFF9091AD),
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );

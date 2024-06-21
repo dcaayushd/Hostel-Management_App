@@ -35,7 +35,7 @@ class _StaffDisplayScreenState extends State<StaffDisplayScreen> {
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
                     width: 2,
-                    color: Color(0xff007b38),
+                    color: Color(0xFF007b38),
                   ),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -105,7 +105,7 @@ class _StaffDisplayScreenState extends State<StaffDisplayScreen> {
                       ),
                       width: double.maxFinite,
                       decoration: BoxDecoration(
-                        color: const Color(0xffec6977),
+                        color: const Color(0xFFec6977),
                         borderRadius: BorderRadius.circular(12.r),
                       ),
                       child: Row(

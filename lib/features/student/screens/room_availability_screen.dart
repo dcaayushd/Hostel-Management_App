@@ -50,7 +50,7 @@ class RoomCard extends StatelessWidget {
             bottomLeft: Radius.circular(30.r),
           ),
           border: Border.all(
-            color: const Color(0xff007b3b),
+            color: const Color(0xFF007b3b),
             width: 2,
           )),
       child: Row(
@@ -121,7 +121,7 @@ class RoomCard extends StatelessWidget {
                       top: 2,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xff2ecc71),
+                      color: const Color(0xFF2ecc71),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(

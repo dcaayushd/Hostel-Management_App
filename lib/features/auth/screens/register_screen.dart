@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     'Register your account',
                     style: TextStyle(
                       fontSize: 20.sp,
-                      color: const Color(0xff333333),
+                      color: const Color(0xFF333333),
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -172,7 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your username',
@@ -194,7 +194,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your first name',
@@ -216,7 +216,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your last name',
@@ -238,7 +238,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your email',
@@ -260,7 +260,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your password',
@@ -282,7 +282,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your phone number',
@@ -304,7 +304,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           side: const BorderSide(
                             width: 1,
                             color: Color(
-                              0xff2e8b57,
+                              0xFF2e8b57,
                             ),
                           ),
                           borderRadius: BorderRadius.circular(14.r),
@@ -345,7 +345,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           side: const BorderSide(
                             width: 1,
                             color: Color(
-                              0xff2e8b57,
+                              0xFF2e8b57,
                             ),
                           ),
                           borderRadius: BorderRadius.circular(14.r),

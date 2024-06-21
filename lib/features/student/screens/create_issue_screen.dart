@@ -60,7 +60,7 @@ class _StudentCreateIssueScreenState extends State<StudentCreateIssueScreen> {
                     shape: RoundedRectangleBorder(
                       side: const BorderSide(
                         width: 1,
-                        color: Color(0xff2e8b57),
+                        color: Color(0xFF2e8b57),
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -88,7 +88,7 @@ class _StudentCreateIssueScreenState extends State<StudentCreateIssueScreen> {
                     shape: RoundedRectangleBorder(
                       side: const BorderSide(
                         width: 1,
-                        color: Color(0xff2e8b57),
+                        color: Color(0xFF2e8b57),
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -116,7 +116,7 @@ class _StudentCreateIssueScreenState extends State<StudentCreateIssueScreen> {
                     shape: RoundedRectangleBorder(
                       side: const BorderSide(
                         width: 1,
-                        color: Color(0xff2e8b57),
+                        color: Color(0xFF2e8b57),
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -144,7 +144,7 @@ class _StudentCreateIssueScreenState extends State<StudentCreateIssueScreen> {
                     shape: RoundedRectangleBorder(
                       side: const BorderSide(
                         width: 1,
-                        color: Color(0xff2e8b57),
+                        color: Color(0xFF2e8b57),
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -172,7 +172,7 @@ class _StudentCreateIssueScreenState extends State<StudentCreateIssueScreen> {
                     shape: RoundedRectangleBorder(
                       side: const BorderSide(
                         width: 1,
-                        color: Color(0xff2e8b57),
+                        color: Color(0xFF2e8b57),
                       ),
                       borderRadius: BorderRadius.circular(14),
                     ),
@@ -217,7 +217,7 @@ class _StudentCreateIssueScreenState extends State<StudentCreateIssueScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                 ),

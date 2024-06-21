@@ -9,6 +9,7 @@ import 'package:hostel_management_app/features/admin/screens/room_change_request
 import 'package:hostel_management_app/features/admin/screens/staff_display_screen.dart';
 import 'package:hostel_management_app/features/home/widgets/category_card.dart';
 import 'package:hostel_management_app/features/student/screens/create_issue_screen.dart';
+import 'package:hostel_management_app/features/student/screens/hostel_fee_screen.dart';
 import 'package:hostel_management_app/features/student/screens/room_availability_screen.dart';
 import 'package:hostel_management_app/theme/colors.dart';
 import 'package:hostel_management_app/theme/text_theme.dart';
@@ -62,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: RoundedRectangleBorder(
                   side: BorderSide(
                     width: 2,
-                    color: Color(0xff007b3b),
+                    color: Color(0xFF007b3b),
                   ),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
@@ -93,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Aayush Dc',
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
-                            color: const Color(0xff333333),
+                            color: const Color(0xFF333333),
                             fontSize: 24.sp,
                           ),
                         ),
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Room No.: 413',
                           style: TextStyle(
                             // fontWeight: FontWeight.w700,
-                            color: const Color(0xff333333),
+                            color: const Color(0xFF333333),
                             fontSize: 15.sp,
                           ),
                         ),
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Block No.: B',
                           style: TextStyle(
                             // fontWeight: FontWeight.w700,
-                            color: const Color(0xff333333),
+                            color: const Color(0xFF333333),
                             fontSize: 15.sp,
                           ),
                         ),
@@ -147,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
             heightSpacer(30),
             Container(
               width: double.maxFinite,
-              // color: const Color(0xff262e8b57),
+              // color: const Color(0xFF262e8b57),
               color: const Color(0x262e8b57),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       'Categories',
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: const Color(0xff333333),
+                        color: const Color(0xFF333333),
                         fontSize: 19.sp,
                       ),
                     ),
@@ -226,7 +227,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       CategoryCard(
                         category: 'Hostel\nFees',
                         image: AppConstants.hostelFee,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const HostelFeeScreen(),
+                            ),
+                          );
+                        },
                       ),
                       CategoryCard(
                         category: 'Change\nRequests',

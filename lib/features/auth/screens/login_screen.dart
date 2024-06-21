@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     'Login to your account',
                     style: TextStyle(
                       fontSize: 20.sp,
-                      color: const Color(0xff333333),
+                      color: const Color(0xFF333333),
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your email',
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your password',

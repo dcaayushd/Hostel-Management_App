@@ -62,7 +62,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your username',
@@ -84,7 +84,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your first name',
@@ -106,7 +106,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your last name',
@@ -128,7 +128,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your Job Role',
@@ -150,7 +150,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                 //   enabledBorder: OutlineInputBorder(
                 //     borderRadius: BorderRadius.circular(14),
                 //     borderSide: const BorderSide(
-                //       color: Color(0xffd1d8ff),
+                //       color: Color(0xFFd1d8ff),
                 //     ),
                 //   ),
                 //   inputHint: 'Enter your email',
@@ -172,7 +172,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your password',
@@ -194,7 +194,7 @@ class _CreateStaffScreenState extends State<CreateStaffScreen> {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
                     borderSide: const BorderSide(
-                      color: Color(0xffd1d8ff),
+                      color: Color(0xFFd1d8ff),
                     ),
                   ),
                   inputHint: 'Enter your phone number',
