@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/common/app_bar.dart';
-import 'package:hostel_management_app/common/custom_text_field.dart';
-import 'package:hostel_management_app/common/spacing.dart';
-import 'package:hostel_management_app/features/auth/widgets/custom_button.dart';
-import 'package:hostel_management_app/theme/text_theme.dart';
+import '../../../common/app_bar.dart';
+import '../../../common/custom_text_field.dart';
+import '../../../common/spacing.dart';
+import '../../auth/widgets/custom_button.dart';
+import '../../../theme/text_theme.dart';
 
 class StudentCreateIssueScreen extends StatefulWidget {
   const StudentCreateIssueScreen({super.key});

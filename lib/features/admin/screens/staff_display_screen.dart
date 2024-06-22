@@ -1,10 +1,10 @@
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/common/app_bar.dart';
-import 'package:hostel_management_app/common/constants.dart';
-import 'package:hostel_management_app/common/spacing.dart';
-import 'package:hostel_management_app/theme/text_theme.dart';
+import '../../../common/app_bar.dart';
+import '../../../common/constants.dart';
+import '../../../common/spacing.dart';
+import '../../../theme/text_theme.dart';
 
 class StaffDisplayScreen extends StatefulWidget {
   const StaffDisplayScreen({super.key});

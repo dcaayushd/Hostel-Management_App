@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/common/app_bar.dart';
+import '../../../common/app_bar.dart';
 
 import '../../../common/custom_text_field.dart';
 import '../../../common/spacing.dart';

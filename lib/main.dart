@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/features/auth/screens/login_screen.dart';
+import 'features/auth/screens/login_screen.dart';
 
 import 'features/home/screen/home_screen.dart';
 

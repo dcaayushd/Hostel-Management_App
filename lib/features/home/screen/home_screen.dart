@@ -2,17 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hostel_management_app/common/constants.dart';
-import 'package:hostel_management_app/common/spacing.dart';
-import 'package:hostel_management_app/features/admin/screens/create_staff_screen.dart';
-import 'package:hostel_management_app/features/admin/screens/room_change_request_screen.dart';
-import 'package:hostel_management_app/features/admin/screens/staff_display_screen.dart';
-import 'package:hostel_management_app/features/home/widgets/category_card.dart';
-import 'package:hostel_management_app/features/student/screens/create_issue_screen.dart';
-import 'package:hostel_management_app/features/student/screens/hostel_fee_screen.dart';
-import 'package:hostel_management_app/features/student/screens/room_availability_screen.dart';
-import 'package:hostel_management_app/theme/colors.dart';
-import 'package:hostel_management_app/theme/text_theme.dart';
+import '../../../common/constants.dart';
+import '../../../common/spacing.dart';
+import '../../admin/screens/create_staff_screen.dart';
+import '../../admin/screens/room_change_request_screen.dart';
+import '../../admin/screens/staff_display_screen.dart';
+import '../widgets/category_card.dart';
+import '../../student/screens/create_issue_screen.dart';
+import '../../student/screens/hostel_fee_screen.dart';
+import '../../student/screens/room_availability_screen.dart';
+import '../../../theme/colors.dart';
+import '../../../theme/text_theme.dart';
 
 import '../../admin/screens/issue_screen.dart';
 

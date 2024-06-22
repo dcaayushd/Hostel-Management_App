@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hostel_management_app/common/spacing.dart';
+import '../../../common/spacing.dart';
 
 class CategoryCard extends StatelessWidget {
   final String category;

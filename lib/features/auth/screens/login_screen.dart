@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // import '../../home/screen/home_screen.dart';
-import '../../../features/auth/screens/register_screen.dart';
+import 'register_screen.dart';
 
 import '../../../theme/colors.dart';
 import '../../../theme/text_theme.dart';
 
-import '/common/constants.dart';
-import '/common/custom_text_field.dart';
-import '/common/spacing.dart';
+import '../../../common/constants.dart';
+import '../../../common/custom_text_field.dart';
+import '../../../common/spacing.dart';
 
 import '../widgets/custom_button.dart';
 
