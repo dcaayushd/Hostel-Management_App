@@ -43,6 +43,17 @@ Check health:
 curl http://127.0.0.1:8000/health
 ```
 
+The backend also accepts deploy-friendly environment variables:
+
+```bash
+export HOSTEL_HOST=0.0.0.0
+export HOSTEL_PORT=8000
+export HOSTEL_DB_PATH=backend/data/hostel.db
+python3 -m backend.server
+```
+
+It also respects standard platform `PORT` values used by managed hosts.
+
 ## Step 2: Create the first admin
 
 For a clean database, bootstrap the admin once:
@@ -200,6 +211,12 @@ sqlite3 backend/data/hostel.db
 
 ```bash
 cp backend/data/hostel.db backend/data/hostel-backup.db
+```
+
+- Docker image for deployment:
+
+```bash
+docker build -f backend/Dockerfile -t hostel-backend .
 ```
 
 ## Remaining production upgrades

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -10,7 +11,9 @@ from backend.repository import BackendError, HostelDataStore
 
 
 def _default_db_path() -> str:
-    return str(Path(__file__).resolve().parent / "data" / "hostel.db")
+    return os.environ.get("HOSTEL_DB_PATH") or str(
+        Path(__file__).resolve().parent / "data" / "hostel.db",
+    )
 
 
 def _store(args: argparse.Namespace) -> HostelDataStore:

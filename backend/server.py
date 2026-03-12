@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -615,18 +616,37 @@ def create_server(
     return HostelApiServer((host, port), handler)
 
 
+def _env_flag(name: str, *, default: bool = False) -> bool:
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 def main() -> None:
+    default_db_path = str(Path(__file__).resolve().parent / "data" / "hostel.db")
+    default_host = (
+        os.environ.get("HOSTEL_HOST")
+        or os.environ.get("HOST")
+        or "127.0.0.1"
+    )
+    default_port = int(
+        os.environ.get("HOSTEL_PORT")
+        or os.environ.get("PORT")
+        or "8000"
+    )
     parser = argparse.ArgumentParser(description="Hostel management Python backend")
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", default=8000, type=int)
+    parser.add_argument("--host", default=default_host)
+    parser.add_argument("--port", default=default_port, type=int)
     parser.add_argument(
         "--demo-data",
         action="store_true",
+        default=_env_flag("HOSTEL_DEMO_DATA"),
         help="Seed development demo data into a new database.",
     )
     parser.add_argument(
         "--db-path",
-        default=str(Path(__file__).resolve().parent / "data" / "hostel.db"),
+        default=os.environ.get("HOSTEL_DB_PATH") or default_db_path,
     )
     args = parser.parse_args()
 
