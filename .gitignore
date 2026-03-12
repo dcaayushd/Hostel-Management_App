@@ -43,3 +43,22 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Python/backend runtime artifacts
+__pycache__/
+*.pyo
+*.pyd
+.venv/
+venv/
+backend/data/*
+!backend/data/.gitkeep
+
+# Local secrets and signing files
+.env
+.env.*
+*.pem
+*.key
+*.jks
+*.keystore
+google-services.json
+GoogleService-Info.plist

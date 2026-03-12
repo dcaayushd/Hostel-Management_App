@@ -9,6 +9,7 @@ class _MessBillSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Brightness brightness = Theme.of(context).brightness;
     final List<_StudentBillRow> rows = state.students
         .map(
           (AppUser student) {
@@ -37,7 +38,7 @@ class _MessBillSection extends StatelessWidget {
           Text(
             'Mess bills',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.kSecondaryColor,
+                  color: AppColors.primaryTextFor(brightness),
                   fontWeight: FontWeight.w800,
                 ),
           ),
@@ -45,7 +46,7 @@ class _MessBillSection extends StatelessWidget {
           Text(
             'Current month meal totals by resident.',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.kMutedTextColor,
+                  color: AppColors.mutedTextFor(brightness),
                 ),
           ),
           heightSpacer(12),
@@ -62,9 +63,9 @@ class _MessBillSection extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.all(10.w),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF8FCFA),
+                    color: AppColors.tonalSurfaceFor(brightness),
                     borderRadius: BorderRadius.circular(18.r),
-                    border: Border.all(color: AppColors.kBorderColor),
+                    border: Border.all(color: AppColors.borderFor(brightness)),
                   ),
                   child: Row(
                     children: <Widget>[
@@ -78,7 +79,7 @@ class _MessBillSection extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                    color: AppColors.kSecondaryColor,
+                                    color: AppColors.primaryTextFor(brightness),
                                     fontWeight: FontWeight.w800,
                                   ),
                             ),
@@ -89,7 +90,7 @@ class _MessBillSection extends StatelessWidget {
                                   .textTheme
                                   .bodySmall
                                   ?.copyWith(
-                                    color: AppColors.kMutedTextColor,
+                                    color: AppColors.mutedTextFor(brightness),
                                   ),
                             ),
                           ],

@@ -20,6 +20,7 @@ import '../../../core/widgets/app_screen_background.dart';
 import '../../../core/widgets/app_section_card.dart';
 import '../../../core/widgets/status_chip.dart';
 import '../../../features/auth/widgets/custom_button.dart';
+import '../../../theme/button_styles.dart';
 import '../../../theme/colors.dart';
 
 part 'gate_pass_screen_parts.dart';

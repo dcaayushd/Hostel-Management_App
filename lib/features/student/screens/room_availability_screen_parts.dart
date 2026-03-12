@@ -199,6 +199,13 @@ class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
       0,
       (int sum, HostelRoom room) => sum + room.availableBeds,
     );
+    String selectedBlockLabel = 'All blocks visible';
+    for (final HostelBlock block in blocks) {
+      if (block.code == _selectedBlock) {
+        selectedBlockLabel = 'Browsing ${block.label}';
+        break;
+      }
+    }
 
     _roomBlockCode ??= blocks.isNotEmpty ? blocks.first.code : null;
     _focusHighlightedRoom(visibleRooms);
@@ -221,6 +228,49 @@ class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Live inventory overview',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                              ),
+                              heightSpacer(6),
+                              Text(
+                                canManageInventory
+                                    ? 'Track blocks, rooms, and open beds in one place while inventory changes sync live.'
+                                    : 'Review live capacity before choosing your next room.',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.82,
+                                      ),
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        widthSpacer(10),
+                        AppTopInfoStatusChip(
+                          label:
+                              canManageInventory ? 'Admin mode' : 'Live view',
+                          accentColor: AppColors.kGreenColor,
+                        ),
+                      ],
+                    ),
+                    heightSpacer(16),
                     LayoutBuilder(
                       builder:
                           (BuildContext context, BoxConstraints constraints) {
@@ -236,26 +286,35 @@ class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
                           children: <Widget>[
                             SizedBox(
                               width: tileWidth,
-                              child: _SummaryTile(
+                              child: AppTopInfoStatTile(
                                 label: 'Blocks',
                                 value: blocks.length.toString(),
                                 icon: Icons.apartment_rounded,
+                                padding: EdgeInsets.all(14.w),
+                                borderRadius: 22,
+                                showBorder: true,
                               ),
                             ),
                             SizedBox(
                               width: tileWidth,
-                              child: _SummaryTile(
+                              child: AppTopInfoStatTile(
                                 label: 'Rooms',
                                 value: state.rooms.length.toString(),
                                 icon: Icons.meeting_room_outlined,
+                                padding: EdgeInsets.all(14.w),
+                                borderRadius: 22,
+                                showBorder: true,
                               ),
                             ),
                             SizedBox(
                               width: tileWidth,
-                              child: _SummaryTile(
+                              child: AppTopInfoStatTile(
                                 label: 'Open beds',
                                 value: totalOpenBeds.toString(),
                                 icon: Icons.bed_outlined,
+                                padding: EdgeInsets.all(14.w),
+                                borderRadius: 22,
+                                showBorder: true,
                               ),
                             ),
                           ],
@@ -263,42 +322,36 @@ class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
                       },
                     ),
                     heightSpacer(14),
-                    Row(
+                    Wrap(
+                      spacing: 10.w,
+                      runSpacing: 10.h,
                       children: <Widget>[
-                        AppTopInfoStatusChip(
-                          label:
-                              canManageInventory ? 'Admin edit' : 'View only',
-                          accentColor: canManageInventory
-                              ? const Color(0xFF155EEF)
-                              : AppColors.kGreenColor,
+                        AppTopInfoIconPill(
+                          icon: Icons.sync_rounded,
+                          label: canManageInventory
+                              ? 'Blocks and rooms update live'
+                              : 'Inventory updates live',
+                          showBorder: true,
                         ),
-                        widthSpacer(8),
-                        Expanded(
-                          child: Text(
-                            canManageInventory
-                                ? 'Blocks and rooms update live.'
-                                : 'Inventory is live.',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Colors.white.withValues(
-                                    alpha: 0.82,
-                                  ),
-                                ),
-                          ),
+                        AppTopInfoIconPill(
+                          icon: Icons.travel_explore_rounded,
+                          label: selectedBlockLabel,
+                          showBorder: true,
                         ),
                       ],
                     ),
                     if (canRequestRoomChange) ...<Widget>[
-                      heightSpacer(12),
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(AppRoutes.roomChangeRequests);
-                        },
-                        icon: const Icon(Icons.swap_horiz_rounded),
-                        label: const Text('Room change requests'),
+                      heightSpacer(16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton.icon(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.roomChangeRequests);
+                          },
+                          icon: const Icon(Icons.swap_horiz_rounded),
+                          label: const Text('Open room requests'),
+                        ),
                       ),
                     ],
                   ],
@@ -338,10 +391,19 @@ class _RoomAvailabilityScreenState extends State<RoomAvailabilityScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Browse',
+                        'Browse inventory',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      heightSpacer(10),
+                      heightSpacer(6),
+                      Text(
+                        'Filter by block or focus on rooms with beds available.',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: AppColors.mutedTextFor(
+                                Theme.of(context).brightness,
+                              ),
+                            ),
+                      ),
+                      heightSpacer(12),
                       Wrap(
                         spacing: 10.w,
                         runSpacing: 10.h,

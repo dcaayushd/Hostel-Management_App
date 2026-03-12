@@ -24,12 +24,18 @@ class _NoticeCard extends StatelessWidget {
                 height: 38.h,
                 width: 38.w,
                 decoration: BoxDecoration(
-                  color: accent.withValues(alpha: 0.12),
+                  color: AppColors.iconSurfaceFor(
+                    brightness,
+                    lightColor: accent,
+                  ),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Icon(
                   _iconForCategory(notice.category),
-                  color: accent,
+                  color: AppColors.iconColorFor(
+                    brightness,
+                    lightColor: accent,
+                  ),
                   size: 19.sp,
                 ),
               ),

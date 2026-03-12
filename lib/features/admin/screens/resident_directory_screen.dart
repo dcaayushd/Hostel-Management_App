@@ -226,7 +226,9 @@ class ResidentDirectoryScreen extends StatelessWidget {
                                   .textTheme
                                   .bodySmall
                                   ?.copyWith(
-                                    color: AppColors.kMutedTextColor,
+                                    color: AppColors.mutedTextFor(
+                                      Theme.of(context).brightness,
+                                    ),
                                     height: 1.4,
                                   ),
                             ),

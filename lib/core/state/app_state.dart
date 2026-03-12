@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' show ThemeMode;
 
+import '../config/app_environment.dart';
 import '../models/auth_challenge.dart';
 import '../models/admin_catalog.dart';
 import '../models/app_user.dart';
@@ -43,6 +44,7 @@ class AppState extends ChangeNotifier {
   bool _activityAutoRefreshEnabled = true;
   bool _showRoomDetailsOnCards = true;
   bool _showContactInfoOnCards = true;
+  String? _backendBaseUrlOverride;
   AppUser? _currentUser;
   AdminCatalog _adminCatalog = defaultAdminCatalog;
   FeeSettings? _feeSettings;
@@ -94,6 +96,14 @@ class AppState extends ChangeNotifier {
   bool get showRoomDetailsOnCards => _showRoomDetailsOnCards;
 
   bool get showContactInfoOnCards => _showContactInfoOnCards;
+
+  String? get backendBaseUrlOverride => _backendBaseUrlOverride;
+
+  String? get activeBackendBaseUrl => AppEnvironment.resolvePythonApiBaseUrl(
+        storedBaseUrl: _backendBaseUrlOverride,
+      );
+
+  bool get backendBaseUrlLockedByBuild => AppEnvironment.hasExplicitApiBaseUrl;
 
   AppUser? get currentUser => _currentUser;
 
@@ -268,6 +278,18 @@ class AppState extends ChangeNotifier {
         .length;
   }
 
+  int get unreadChatCount {
+    final String? userId = _currentUser?.id;
+    if (userId == null) {
+      return 0;
+    }
+    return _chatMessages
+        .where(
+          (ChatMessage item) => item.recipientId == userId && !item.isRead,
+        )
+        .length;
+  }
+
   FeeSummary? feeSummaryFor(String userId) {
     if (_currentUser?.id == userId && _currentFeeSummary != null) {
       return _currentFeeSummary;
@@ -353,6 +375,18 @@ class AppState extends ChangeNotifier {
         .length;
   }
 
+  int get activeGatePassCount {
+    return visibleGatePasses
+        .where(
+          (GatePassRequest request) =>
+              request.status.isPending ||
+              request.status.isApproved ||
+              request.status.isCheckedOut ||
+              request.isLateNow,
+        )
+        .length;
+  }
+
   int get availableRoomCount {
     return _rooms.where((HostelRoom room) => room.hasAvailability).length;
   }
@@ -374,6 +408,10 @@ class AppState extends ChangeNotifier {
     return visibleVisitorEntries
         .where((VisitorEntry entry) => entry.isActive)
         .length;
+  }
+
+  int get frontDeskAttentionCount {
+    return pendingParcelCount + activeVisitorCount;
   }
 
   int get activeLaundryCount {
@@ -464,6 +502,7 @@ class AppState extends ChangeNotifier {
           await _sessionStore.readShowRoomDetailsOnCards() ?? true;
       _showContactInfoOnCards =
           await _sessionStore.readShowContactInfoOnCards() ?? true;
+      _backendBaseUrlOverride = await _sessionStore.readBackendBaseUrl();
       final String? storedUserId = await _sessionStore.readUserId();
       await refreshData(restoredUserId: storedUserId);
     } on HostelRepositoryException catch (error) {
@@ -1449,6 +1488,20 @@ class AppState extends ChangeNotifier {
     await _sessionStore.clearAppPreferences();
   }
 
+  Future<void> setBackendBaseUrlOverride(String? value) async {
+    final String? normalized = _normalizeBackendBaseUrl(value);
+    if (normalized == _backendBaseUrlOverride) {
+      return;
+    }
+    _backendBaseUrlOverride = normalized;
+    if (normalized == null) {
+      await _sessionStore.clearBackendBaseUrl();
+    } else {
+      await _sessionStore.writeBackendBaseUrl(normalized);
+    }
+    notifyListeners();
+  }
+
   void logout() {
     _currentUser = null;
     _feeSettings = null;
@@ -1464,6 +1517,20 @@ class AppState extends ChangeNotifier {
     _lastError = null;
     unawaited(_sessionStore.clear());
     notifyListeners();
+  }
+
+  String? _normalizeBackendBaseUrl(String? value) {
+    if (value == null) {
+      return null;
+    }
+    final String trimmed = value.trim();
+    if (trimmed.isEmpty) {
+      return null;
+    }
+    if (trimmed.endsWith('/')) {
+      return trimmed.substring(0, trimmed.length - 1);
+    }
+    return trimmed;
   }
 
   void _setLoading(bool value) {

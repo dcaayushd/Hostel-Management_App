@@ -18,14 +18,32 @@ class _MenuDayCard extends StatelessWidget {
       padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
         color: highlighted
-            ? AppColors.kGreenColor.withValues(alpha: 0.08)
+            ? AppColors.activeSurfaceFor(
+                brightness,
+                color: AppColors.kGreenColor,
+                lightAlpha: 0.10,
+                darkAlpha: 0.18,
+              )
             : AppColors.tonalSurfaceFor(brightness),
         borderRadius: BorderRadius.circular(18.r),
         border: Border.all(
           color: highlighted
-              ? AppColors.kGreenColor.withValues(alpha: 0.24)
+              ? AppColors.activeBorderFor(
+                  brightness,
+                  color: AppColors.kGreenColor,
+                )
               : AppColors.outlineFor(brightness),
         ),
+        boxShadow: highlighted
+            ? <BoxShadow>[
+                AppColors.activeShadow(
+                  brightness,
+                  color: AppColors.kGreenColor,
+                  blurRadius: 18,
+                  offset: const Offset(0, 8),
+                ),
+              ]
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,8 +61,9 @@ class _MenuDayCard extends StatelessWidget {
               ),
               if (highlighted)
                 const StatusChip(
-                  label: 'Current',
+                  label: 'Today',
                   color: AppColors.kGreenColor,
+                  emphasized: true,
                 ),
               if (onEdit != null) ...<Widget>[
                 if (highlighted) widthSpacer(6),

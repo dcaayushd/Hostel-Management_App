@@ -32,10 +32,20 @@ class _NotificationTile extends StatelessWidget {
                 height: 42.h,
                 width: 42.w,
                 decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.12),
+                  color: AppColors.iconSurfaceFor(
+                    brightness,
+                    lightColor: accentColor,
+                  ),
                   borderRadius: BorderRadius.circular(14.r),
                 ),
-                child: Icon(icon, color: accentColor, size: 20.sp),
+                child: Icon(
+                  icon,
+                  color: AppColors.iconColorFor(
+                    brightness,
+                    lightColor: accentColor,
+                  ),
+                  size: 20.sp,
+                ),
               ),
               widthSpacer(12),
               Expanded(
@@ -125,7 +135,7 @@ class _NotificationTile extends StatelessWidget {
       case HostelNotificationType.roomChange:
         return const Color(0xFF4C8E73);
       case HostelNotificationType.parcel:
-        return const Color(0xFF2B6CB0);
+        return AppColors.kGreenColor;
       case HostelNotificationType.gatePass:
         return const Color(0xFFB54708);
     }

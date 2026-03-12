@@ -291,6 +291,9 @@ class _GatePassScreenState extends State<GatePassScreen> {
         canManage ? widget.routeArgs?.filter : null;
     final List<GatePassRequest> passes = state.visibleGatePasses;
     final List<GatePassRequest> filteredPasses = switch (activeFilter) {
+      GatePassScreenFilter.pendingOnly => passes
+          .where((GatePassRequest item) => item.status.isPending)
+          .toList(growable: false),
       GatePassScreenFilter.activeOnly => passes
           .where(
             (GatePassRequest item) => item.canMarkReturned || item.isLateNow,
@@ -299,10 +302,13 @@ class _GatePassScreenState extends State<GatePassScreen> {
       null => passes,
     };
     final String queueTitle = switch (activeFilter) {
+      GatePassScreenFilter.pendingOnly => 'Students in gate queue',
       GatePassScreenFilter.activeOnly => 'Residents currently out',
       null => 'Gate pass queue',
     };
     final String queueDescription = switch (activeFilter) {
+      GatePassScreenFilter.pendingOnly =>
+        'Pending gate-pass requests waiting for review.',
       GatePassScreenFilter.activeOnly =>
         'Checked-out and late residents who still need to be marked as returned.',
       null => 'Approvals, departures, returns, and late entries.',
@@ -317,67 +323,88 @@ class _GatePassScreenState extends State<GatePassScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: buildAppBar(context, 'Gate Pass'),
+      appBar: buildAppBar(
+        context,
+        switch (activeFilter) {
+          GatePassScreenFilter.pendingOnly => 'Gate Queue',
+          GatePassScreenFilter.activeOnly => 'Active Gate Passes',
+          null => 'Gate Pass',
+        },
+      ),
       body: AppScreenBackground(
         child: ListView(
           padding:
               appPagePadding(context, horizontal: 14, top: 8, bottomExtra: 18),
           children: canManage
-              ? <Widget>[
-                  _GatePassSummary(
-                    title: 'Security desk',
-                    firstLabel: 'Pending',
-                    firstValue: state.pendingGatePassCount.toString(),
-                    secondLabel: 'Late',
-                    secondValue: state.activeLateEntryCount.toString(),
-                  ),
-                  heightSpacer(12),
-                  _GateReminderSection(
-                    passes: passes,
-                    state: state,
-                  ),
-                  heightSpacer(12),
-                  _GateDeskProcessor(
-                    controller: _passCodeController,
-                    onProcess: () => _processDeskCode(state),
-                  ),
-                  heightSpacer(12),
-                  _GatePassListSection(
-                    title: queueTitle,
-                    description: queueDescription,
-                    passes: filteredPasses,
-                    state: state,
-                    showResident: true,
-                    onApprove: (String gatePassId) {
-                      _reviewPass(gatePassId, GatePassStatus.approved);
-                    },
-                    onReject: (String gatePassId) {
-                      _reviewPass(gatePassId, GatePassStatus.rejected);
-                    },
-                    onCheckOut: _markDeparture,
-                    onReturn: _markReturn,
-                  ),
-                  if (activeFilter != null) ...<Widget>[
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton.icon(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed(AppRoutes.gatePass);
+              ? activeFilter != null
+                  ? <Widget>[
+                      _GatePassListSection(
+                        title: queueTitle,
+                        description: queueDescription,
+                        passes: filteredPasses,
+                        state: state,
+                        showResident: true,
+                        onApprove: (String gatePassId) {
+                          _reviewPass(gatePassId, GatePassStatus.approved);
                         },
-                        icon: const Icon(Icons.view_list_rounded),
-                        label: const Text('View full queue'),
+                        onReject: (String gatePassId) {
+                          _reviewPass(gatePassId, GatePassStatus.rejected);
+                        },
+                        onCheckOut: _markDeparture,
+                        onReturn: _markReturn,
                       ),
-                    ),
-                  ],
-                  if (activeFilter == null) ...<Widget>[
-                    heightSpacer(12),
-                    _GateMovementSection(
-                      passes: passes,
-                      state: state,
-                    ),
-                  ],
-                ]
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextButton.icon(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushReplacementNamed(AppRoutes.gatePass);
+                          },
+                          icon: const Icon(Icons.view_list_rounded),
+                          label: const Text('View full queue'),
+                        ),
+                      ),
+                    ]
+                  : <Widget>[
+                      _GatePassSummary(
+                        title: 'Security desk',
+                        firstLabel: 'Pending',
+                        firstValue: state.pendingGatePassCount.toString(),
+                        secondLabel: 'Late',
+                        secondValue: state.activeLateEntryCount.toString(),
+                      ),
+                      heightSpacer(12),
+                      _GateReminderSection(
+                        passes: passes,
+                        state: state,
+                      ),
+                      heightSpacer(12),
+                      _GateDeskProcessor(
+                        controller: _passCodeController,
+                        onProcess: () => _processDeskCode(state),
+                      ),
+                      heightSpacer(12),
+                      _GatePassListSection(
+                        title: queueTitle,
+                        description: queueDescription,
+                        passes: filteredPasses,
+                        state: state,
+                        showResident: true,
+                        onApprove: (String gatePassId) {
+                          _reviewPass(gatePassId, GatePassStatus.approved);
+                        },
+                        onReject: (String gatePassId) {
+                          _reviewPass(gatePassId, GatePassStatus.rejected);
+                        },
+                        onCheckOut: _markDeparture,
+                        onReturn: _markReturn,
+                      ),
+                      heightSpacer(12),
+                      _GateMovementSection(
+                        passes: passes,
+                        state: state,
+                      ),
+                    ]
               : <Widget>[
                   _GatePassSummary(
                     title: 'Leave pass',
@@ -404,7 +431,9 @@ class _GatePassScreenState extends State<GatePassScreen> {
                                 .textTheme
                                 .titleMedium
                                 ?.copyWith(
-                                  color: AppColors.kSecondaryColor,
+                                  color: AppColors.primaryTextFor(
+                                    Theme.of(context).brightness,
+                                  ),
                                   fontWeight: FontWeight.w800,
                                 ),
                           ),

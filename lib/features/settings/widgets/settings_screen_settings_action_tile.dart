@@ -31,13 +31,19 @@ class _SettingsActionTile extends StatelessWidget {
                 height: 40.h,
                 width: 40.w,
                 decoration: BoxDecoration(
-                  color: accentColor.withValues(alpha: 0.12),
+                  color: AppColors.iconSurfaceFor(
+                    brightness,
+                    lightColor: accentColor,
+                  ),
                   borderRadius: BorderRadius.circular(14.r),
                 ),
                 child: Icon(
                   icon,
                   size: 18.sp,
-                  color: accentColor,
+                  color: AppColors.iconColorFor(
+                    brightness,
+                    lightColor: accentColor,
+                  ),
                 ),
               ),
               widthSpacer(12),
@@ -65,7 +71,7 @@ class _SettingsActionTile extends StatelessWidget {
               ),
               Icon(
                 AppIcons.forward,
-                color: AppColors.mutedTextFor(brightness),
+                color: AppColors.mutedIconFor(brightness),
                 size: 17.sp,
               ),
             ],

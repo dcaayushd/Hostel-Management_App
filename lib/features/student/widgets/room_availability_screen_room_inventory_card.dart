@@ -13,6 +13,8 @@ class _RoomInventoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final AppState state = context.watch<AppState>();
     final Brightness brightness = Theme.of(context).brightness;
+    final Color primaryTextColor = AppColors.primaryTextFor(brightness);
+    final Color mutedTextColor = AppColors.mutedTextFor(brightness);
     return Container(
       margin: EdgeInsets.only(bottom: 14.h),
       decoration: highlighted
@@ -35,32 +37,58 @@ class _RoomInventoryCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Container(
+                  height: 48.h,
+                  width: 48.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.iconSurfaceFor(
+                      brightness,
+                      lightColor: AppColors.kGreenColor,
+                      lightAlpha: 0.10,
+                      darkAlpha: 0.14,
+                    ),
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: Icon(
+                    Icons.meeting_room_outlined,
+                    color: AppColors.iconColorFor(brightness),
+                  ),
+                ),
+                widthSpacer(12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         room.label,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: primaryTextColor,
+                              fontWeight: FontWeight.w800,
+                            ),
                       ),
                       heightSpacer(4),
                       Text(
                         room.roomType,
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: mutedTextColor,
+                            ),
                       ),
                     ],
                   ),
                 ),
                 if (state.currentRoom?.id == room.id)
                   const StatusChip(
-                    label: 'Your Room',
-                    color: Color(0xFF155EEF),
+                    label: 'Current room',
+                    color: AppColors.kGreenColor,
+                    emphasized: true,
                   )
                 else if (highlighted)
                   const StatusChip(
                     label: 'Search match',
                     color: AppColors.kGreenColor,
+                    emphasized: true,
                   )
                 else
                   StatusChip(
@@ -68,6 +96,7 @@ class _RoomInventoryCard extends StatelessWidget {
                     color: room.hasAvailability
                         ? AppColors.kGreenColor
                         : const Color(0xFFB42318),
+                    emphasized: room.hasAvailability,
                   ),
               ],
             ),
@@ -90,17 +119,18 @@ class _RoomInventoryCard extends StatelessWidget {
               spacing: 8.w,
               runSpacing: 8.h,
               children: <Widget>[
-                _MetaPill(
+                AppMetaChip(
                   icon: Icons.apartment_outlined,
                   label: 'Block ${room.block}',
                 ),
-                _MetaPill(
+                AppMetaChip(
                   icon: Icons.people_outline,
                   label: '${room.occupiedBeds}/${room.capacity} occupied',
                 ),
-                _MetaPill(
+                AppMetaChip(
                   icon: Icons.bed_outlined,
                   label: '${room.availableBeds} bed(s) open',
+                  highlighted: room.availableBeds > 0,
                 ),
               ],
             ),

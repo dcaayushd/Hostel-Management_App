@@ -4,9 +4,7 @@ class _AdminFeeView extends StatelessWidget {
   const _AdminFeeView({
     required this.state,
     required this.filteredStudents,
-    required this.settledStudents,
     required this.showOnlyDues,
-    required this.activeFilter,
     required this.residentListTitle,
     required this.residentListDescription,
     required this.canEditSettings,
@@ -30,9 +28,7 @@ class _AdminFeeView extends StatelessWidget {
 
   final AppState state;
   final List<AppUser> filteredStudents;
-  final List<AppUser> settledStudents;
   final bool showOnlyDues;
-  final FeeScreenFilter? activeFilter;
   final String residentListTitle;
   final String residentListDescription;
   final bool canEditSettings;
@@ -69,6 +65,20 @@ class _AdminFeeView extends StatelessWidget {
 
     final List<PaymentRecord> recentPayments =
         state.recentPayments.take(6).toList();
+
+    if (showOnlyDues) {
+      return ListView(
+        padding:
+            appPagePadding(context, horizontal: 14, top: 8, bottomExtra: 18),
+        children: <Widget>[
+          _buildResidentDuesSection(
+            context,
+            primaryTextColor: primaryTextColor,
+            mutedTextColor: mutedTextColor,
+          ),
+        ],
+      );
+    }
 
     return ListView(
       padding: appPagePadding(context, horizontal: 14, top: 8, bottomExtra: 18),
@@ -244,120 +254,11 @@ class _AdminFeeView extends StatelessWidget {
               ),
             ),
           ),
-        AppSectionCard(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _SectionTitle(
-                title: showOnlyDues ? 'Residents With Dues' : 'Resident Dues',
-                trailing: showOnlyDues
-                    ? TextButton.icon(
-                        onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(
-                            AppRoutes.fees,
-                            arguments: const FeeScreenRouteArgs(
-                              filter: FeeScreenFilter.allResidents,
-                            ),
-                          );
-                        },
-                        icon: const Icon(Icons.view_list_rounded),
-                        label: const Text('View all'),
-                      )
-                    : null,
-              ),
-              heightSpacer(12),
-              Text(
-                residentListTitle,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: primaryTextColor,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
-              heightSpacer(4),
-              Text(
-                residentListDescription,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: mutedTextColor,
-                      height: 1.4,
-                    ),
-              ),
-              heightSpacer(12),
-              if (filteredStudents.isEmpty)
-                AppEmptyState(
-                  icon: Icons.receipt_long_outlined,
-                  title: showOnlyDues ? 'No fee dues' : 'No residents yet',
-                  message: showOnlyDues
-                      ? 'Residents with unpaid balances for the current cycle will appear here.'
-                      : 'Resident balances will appear here once accounts are assigned.',
-                )
-              else
-                ...filteredStudents.map(
-                  (AppUser student) => _AdminResidentFeeTile(
-                    student: student,
-                    summary: state.feeSummaryFor(student.id),
-                    roomLabel: state.findRoom(student.roomId ?? '')?.label,
-                    onSendReminder: () => onSendReminder(student.id),
-                    onCollectFee: () => onCollectFee(student.id),
-                    onOpenChat: () {
-                      Navigator.of(context).pushNamed(
-                        AppRoutes.chat,
-                        arguments: ChatRouteArgs(partnerId: student.id),
-                      );
-                    },
-                  ),
-                ),
-            ],
-          ),
+        _buildResidentDuesSection(
+          context,
+          primaryTextColor: primaryTextColor,
+          mutedTextColor: mutedTextColor,
         ),
-        if (showOnlyDues)
-          AppSectionCard(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _SectionTitle(
-                  title: 'Paid This Cycle',
-                  trailing: activeFilter == FeeScreenFilter.duesOnly
-                      ? TextButton.icon(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacementNamed(
-                              AppRoutes.fees,
-                              arguments: const FeeScreenRouteArgs(
-                                filter: FeeScreenFilter.allResidents,
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.people_alt_outlined),
-                          label: const Text('All residents'),
-                        )
-                      : null,
-                ),
-                heightSpacer(12),
-                if (settledStudents.isEmpty)
-                  const AppEmptyState(
-                    icon: Icons.check_circle_outline_rounded,
-                    title: 'No settled residents yet',
-                    message:
-                        'Residents who have already cleared the current cycle will appear here.',
-                  )
-                else
-                  ...settledStudents.map(
-                    (AppUser student) => _AdminResidentFeeTile(
-                      student: student,
-                      summary: state.feeSummaryFor(student.id),
-                      roomLabel: state.findRoom(student.roomId ?? '')?.label,
-                      onSendReminder: () {},
-                      onCollectFee: () {},
-                      onOpenChat: () {
-                        Navigator.of(context).pushNamed(
-                          AppRoutes.chat,
-                          arguments: ChatRouteArgs(partnerId: student.id),
-                        );
-                      },
-                    ),
-                  ),
-              ],
-            ),
-          ),
         AppSectionCard(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,6 +284,78 @@ class _AdminFeeView extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildResidentDuesSection(
+    BuildContext context, {
+    required Color primaryTextColor,
+    required Color mutedTextColor,
+  }) {
+    return AppSectionCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _SectionTitle(
+            title: showOnlyDues ? 'Residents With Dues' : 'Resident Dues',
+            trailing: showOnlyDues
+                ? TextButton.icon(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(
+                        AppRoutes.fees,
+                        arguments: const FeeScreenRouteArgs(
+                          filter: FeeScreenFilter.allResidents,
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.view_list_rounded),
+                    label: const Text('View all'),
+                  )
+                : null,
+          ),
+          heightSpacer(12),
+          Text(
+            residentListTitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: primaryTextColor,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
+          heightSpacer(4),
+          Text(
+            residentListDescription,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: mutedTextColor,
+                  height: 1.4,
+                ),
+          ),
+          heightSpacer(12),
+          if (filteredStudents.isEmpty)
+            AppEmptyState(
+              icon: Icons.receipt_long_outlined,
+              title: showOnlyDues ? 'No fee dues' : 'No residents yet',
+              message: showOnlyDues
+                  ? 'Residents with unpaid balances for the current cycle will appear here.'
+                  : 'Resident balances will appear here once accounts are assigned.',
+            )
+          else
+            ...filteredStudents.map(
+              (AppUser student) => _AdminResidentFeeTile(
+                student: student,
+                summary: state.feeSummaryFor(student.id),
+                roomLabel: state.findRoom(student.roomId ?? '')?.label,
+                onSendReminder: () => onSendReminder(student.id),
+                onCollectFee: () => onCollectFee(student.id),
+                onOpenChat: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.chat,
+                    arguments: ChatRouteArgs(partnerId: student.id),
+                  );
+                },
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

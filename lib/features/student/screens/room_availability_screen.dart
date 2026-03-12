@@ -17,6 +17,7 @@ import '../../../core/utils/app_validators.dart';
 import '../../../core/utils/feedback.dart';
 import '../../../core/widgets/app_dropdown_field.dart';
 import '../../../core/widgets/app_empty_state.dart';
+import '../../../core/widgets/app_meta_chip.dart';
 import '../../../core/widgets/app_screen_background.dart';
 import '../../../core/widgets/app_section_card.dart';
 import '../../../core/widgets/app_top_info_surface.dart';
@@ -27,8 +28,6 @@ import '../../../theme/colors.dart';
 part 'room_availability_screen_parts.dart';
 part '../widgets/room_availability_screen_admin_inventory_composer.dart';
 part '../widgets/room_availability_screen_room_inventory_card.dart';
-part '../widgets/room_availability_screen_summary_tile.dart';
-part '../widgets/room_availability_screen_meta_pill.dart';
 
 const List<String> _roomTypes = <String>[
   'Single Occupancy',

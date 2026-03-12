@@ -30,6 +30,7 @@ class FeeScreenRouteArgs {
 }
 
 enum GatePassScreenFilter {
+  pendingOnly,
   activeOnly,
 }
 

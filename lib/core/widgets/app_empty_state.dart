@@ -27,9 +27,7 @@ class AppEmptyState extends StatelessWidget {
             Icon(
               icon,
               size: 54.sp,
-              color: brightness == Brightness.dark
-                  ? const Color(0xFF6FCB94)
-                  : AppColors.kGreenColor,
+              color: AppColors.iconColorFor(brightness),
             ),
             SizedBox(height: 14.h),
             Text(

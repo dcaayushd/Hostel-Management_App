@@ -28,12 +28,18 @@ class _SearchResultTile extends StatelessWidget {
                 height: 40.h,
                 width: 40.w,
                 decoration: BoxDecoration(
-                  color: result.accentColor.withValues(alpha: 0.12),
+                  color: AppColors.iconSurfaceFor(
+                    brightness,
+                    lightColor: result.accentColor,
+                  ),
                   borderRadius: BorderRadius.circular(14.r),
                 ),
                 child: Icon(
                   result.icon,
-                  color: result.accentColor,
+                  color: AppColors.iconColorFor(
+                    brightness,
+                    lightColor: result.accentColor,
+                  ),
                   size: 19.sp,
                 ),
               ),
@@ -67,7 +73,7 @@ class _SearchResultTile extends StatelessWidget {
               Icon(
                 AppIcons.forward,
                 size: 14.sp,
-                color: AppColors.mutedTextFor(brightness),
+                color: AppColors.mutedIconFor(brightness),
               ),
             ],
           ),

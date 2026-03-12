@@ -13,22 +13,24 @@ class _InlineAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: color.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(999.r),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(999.r),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
-          child: Text(
-            label,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                  color: color,
-                  fontWeight: FontWeight.w700,
-                ),
-          ),
-        ),
+    return OutlinedButton(
+      onPressed: onTap,
+      style: AppButtonStyles.outlined(
+        Theme.of(context).brightness,
+        color: color,
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
+        radius: 999.r,
+      ).copyWith(
+        minimumSize: const WidgetStatePropertyAll<Size>(Size.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        visualDensity: VisualDensity.compact,
+      ),
+      child: Text(
+        label,
+        style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w700,
+            ),
       ),
     );
   }

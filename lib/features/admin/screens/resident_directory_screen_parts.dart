@@ -145,7 +145,7 @@ class _RoomAssignmentSheetState extends State<_RoomAssignmentSheet> {
               Text(
                 widget.resident.fullName,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppColors.kSecondaryColor,
+                      color: AppColors.primaryTextFor(brightness),
                     ),
               ),
               heightSpacer(4),

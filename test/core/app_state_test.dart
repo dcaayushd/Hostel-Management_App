@@ -284,6 +284,7 @@ class FakeSessionStore implements SessionStore {
     this.initialActivityAutoRefreshEnabled,
     this.initialShowRoomDetailsOnCards,
     this.initialShowContactInfoOnCards,
+    this.initialBackendBaseUrl,
   })  : userId = initialUserId,
         themeMode = initialThemeMode,
         inAppNotificationsEnabled = initialInAppNotificationsEnabled,
@@ -291,7 +292,8 @@ class FakeSessionStore implements SessionStore {
         notificationBadgesEnabled = initialNotificationBadgesEnabled,
         activityAutoRefreshEnabled = initialActivityAutoRefreshEnabled,
         showRoomDetailsOnCards = initialShowRoomDetailsOnCards,
-        showContactInfoOnCards = initialShowContactInfoOnCards;
+        showContactInfoOnCards = initialShowContactInfoOnCards,
+        backendBaseUrl = initialBackendBaseUrl;
 
   final String? initialUserId;
   final String? initialThemeMode;
@@ -301,6 +303,7 @@ class FakeSessionStore implements SessionStore {
   final bool? initialActivityAutoRefreshEnabled;
   final bool? initialShowRoomDetailsOnCards;
   final bool? initialShowContactInfoOnCards;
+  final String? initialBackendBaseUrl;
   String? userId;
   String? themeMode;
   bool? inAppNotificationsEnabled;
@@ -309,6 +312,7 @@ class FakeSessionStore implements SessionStore {
   bool? activityAutoRefreshEnabled;
   bool? showRoomDetailsOnCards;
   bool? showContactInfoOnCards;
+  String? backendBaseUrl;
 
   @override
   Future<void> clear() async {
@@ -324,6 +328,11 @@ class FakeSessionStore implements SessionStore {
     activityAutoRefreshEnabled = null;
     showRoomDetailsOnCards = null;
     showContactInfoOnCards = null;
+  }
+
+  @override
+  Future<void> clearBackendBaseUrl() async {
+    backendBaseUrl = null;
   }
 
   @override
@@ -353,6 +362,9 @@ class FakeSessionStore implements SessionStore {
 
   @override
   Future<bool?> readShowContactInfoOnCards() async => showContactInfoOnCards;
+
+  @override
+  Future<String?> readBackendBaseUrl() async => backendBaseUrl;
 
   @override
   Future<void> writeUserId(String userId) async {
@@ -392,6 +404,11 @@ class FakeSessionStore implements SessionStore {
   @override
   Future<void> writeShowContactInfoOnCards(bool value) async {
     showContactInfoOnCards = value;
+  }
+
+  @override
+  Future<void> writeBackendBaseUrl(String value) async {
+    backendBaseUrl = value;
   }
 }
 

@@ -12,13 +12,27 @@ class AppEnvironment {
   static const bool _forceMockBackend =
       bool.fromEnvironment('HOSTEL_FORCE_MOCK_BACKEND', defaultValue: false);
 
+  static String? get explicitApiBaseUrl => _normalizeBaseUrl(_apiBaseUrl);
+
+  static bool get hasExplicitApiBaseUrl => explicitApiBaseUrl != null;
+
   static String? get pythonApiBaseUrl {
-    final String? explicitBaseUrl = _normalizeBaseUrl(_apiBaseUrl);
+    return resolvePythonApiBaseUrl();
+  }
+
+  static String? resolvePythonApiBaseUrl({
+    String? storedBaseUrl,
+  }) {
+    final String? explicitBaseUrl = explicitApiBaseUrl;
     if (explicitBaseUrl != null) {
       return explicitBaseUrl;
     }
     if (_forceMockBackend || _isFlutterTest) {
       return null;
+    }
+    final String? persistedBaseUrl = _normalizeBaseUrl(storedBaseUrl);
+    if (persistedBaseUrl != null) {
+      return persistedBaseUrl;
     }
     return _normalizeBaseUrl(_defaultLocalApiBaseUrl);
   }
@@ -44,6 +58,8 @@ class AppEnvironment {
         return 'http://127.0.0.1:8000';
     }
   }
+
+  static String get defaultDeviceApiBaseUrl => _defaultLocalApiBaseUrl;
 
   static String? _normalizeBaseUrl(String? value) {
     if (value == null) {

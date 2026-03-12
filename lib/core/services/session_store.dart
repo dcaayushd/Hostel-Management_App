@@ -35,6 +35,12 @@ abstract interface class SessionStore {
 
   Future<void> writeShowContactInfoOnCards(bool value);
 
+  Future<String?> readBackendBaseUrl();
+
+  Future<void> writeBackendBaseUrl(String value);
+
+  Future<void> clearBackendBaseUrl();
+
   Future<void> clearAppPreferences();
 
   Future<void> clear();
@@ -54,6 +60,7 @@ class SharedPreferencesSessionStore implements SessionStore {
   static const String _activityAutoRefreshKey = 'activity_auto_refresh_enabled';
   static const String _showRoomDetailsOnCardsKey = 'show_room_details_on_cards';
   static const String _showContactInfoOnCardsKey = 'show_contact_info_on_cards';
+  static const String _backendBaseUrlKey = 'backend_base_url';
 
   final TokenStorage _tokenStorage;
 
@@ -153,6 +160,24 @@ class SharedPreferencesSessionStore implements SessionStore {
   Future<void> writeShowContactInfoOnCards(bool value) async {
     final SharedPreferences prefs = await _prefs;
     await prefs.setBool(_showContactInfoOnCardsKey, value);
+  }
+
+  @override
+  Future<String?> readBackendBaseUrl() async {
+    final SharedPreferences prefs = await _prefs;
+    return prefs.getString(_backendBaseUrlKey);
+  }
+
+  @override
+  Future<void> writeBackendBaseUrl(String value) async {
+    final SharedPreferences prefs = await _prefs;
+    await prefs.setString(_backendBaseUrlKey, value);
+  }
+
+  @override
+  Future<void> clearBackendBaseUrl() async {
+    final SharedPreferences prefs = await _prefs;
+    await prefs.remove(_backendBaseUrlKey);
   }
 
   @override

@@ -1,6 +1,8 @@
 part of 'hostel_fee_screen.dart';
 
 class _HostelFeeScreenState extends State<HostelFeeScreen> {
+  static const String _electricityChargeLabel = 'Electricity';
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _electricityController = TextEditingController();
   final TextEditingController _waterController = TextEditingController();
@@ -16,6 +18,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
 
   @override
   void dispose() {
+    _electricityController.dispose();
     _maintenanceController.dispose();
     _parkingController.dispose();
     _waterController.dispose();
@@ -29,13 +32,15 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
     if (settings == null || _matchesSyncedSettings(settings)) {
       return;
     }
+    _electricityController.text =
+        _electricityAmountFor(settings.customCharges).toString();
     _maintenanceController.text = settings.maintenanceCharge.toString();
     _parkingController.text = settings.parkingCharge.toString();
     _waterController.text = settings.waterCharge.toString();
     _singleController.text = settings.singleOccupancyCharge.toString();
     _doubleController.text = settings.doubleSharingCharge.toString();
     _tripleController.text = settings.tripleSharingCharge.toString();
-    _customCharges = List<FeeChargeItem>.from(settings.customCharges);
+    _customCharges = _customChargesWithoutElectricity(settings.customCharges);
     _syncedSettings = settings;
   }
 
@@ -67,6 +72,37 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
       }
     }
     return true;
+  }
+
+  bool _isElectricityChargeLabel(String label) {
+    return label.trim().toLowerCase() == _electricityChargeLabel.toLowerCase();
+  }
+
+  bool _isElectricityCharge(FeeChargeItem item) {
+    return _isElectricityChargeLabel(item.label);
+  }
+
+  int _electricityAmountFor(Iterable<FeeChargeItem> charges) {
+    for (final FeeChargeItem item in charges) {
+      if (_isElectricityCharge(item)) {
+        return item.amount;
+      }
+    }
+    return 0;
+  }
+
+  List<FeeChargeItem> _customChargesWithoutElectricity(
+    Iterable<FeeChargeItem> charges,
+  ) {
+    return charges
+        .where((FeeChargeItem item) => !_isElectricityCharge(item))
+        .map(
+          (FeeChargeItem item) => FeeChargeItem(
+            label: item.label,
+            amount: item.amount,
+          ),
+        )
+        .toList(growable: false);
   }
 
   Future<void> _addOrEditCustomCharge({
@@ -145,9 +181,18 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
                           );
                           return;
                         }
+                        final String label = labelController.text.trim();
+                        if (_isElectricityChargeLabel(label)) {
+                          showAppMessage(
+                            context,
+                            'Electricity is managed from the field above.',
+                            isError: true,
+                          );
+                          return;
+                        }
                         Navigator.of(context).pop(
                           FeeChargeItem(
-                            label: labelController.text.trim(),
+                            label: label,
                             amount: amount,
                           ),
                         );
@@ -193,6 +238,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
     }
 
     final List<int?> values = <int?>[
+      int.tryParse(_electricityController.text.trim()),
       int.tryParse(_maintenanceController.text.trim()),
       int.tryParse(_parkingController.text.trim()),
       int.tryParse(_waterController.text.trim()),
@@ -209,15 +255,25 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
       return;
     }
 
+    final List<FeeChargeItem> customCharges = <FeeChargeItem>[
+      FeeChargeItem(
+        label: _electricityChargeLabel,
+        amount: values[0]!,
+      ),
+      ..._customCharges.where(
+        (FeeChargeItem item) => !_isElectricityCharge(item),
+      ),
+    ];
+
     try {
       await context.read<AppState>().updateFeeSettings(
-            maintenanceCharge: values[0]!,
-            parkingCharge: values[1]!,
-            waterCharge: values[2]!,
-            singleOccupancyCharge: values[3]!,
-            doubleSharingCharge: values[4]!,
-            tripleSharingCharge: values[5]!,
-            customCharges: _customCharges,
+            maintenanceCharge: values[1]!,
+            parkingCharge: values[2]!,
+            waterCharge: values[3]!,
+            singleOccupancyCharge: values[4]!,
+            doubleSharingCharge: values[5]!,
+            tripleSharingCharge: values[6]!,
+            customCharges: customCharges,
           );
       if (!mounted) {
         return;
@@ -510,12 +566,6 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
         }
         return a.fullName.compareTo(b.fullName);
       });
-    final List<AppUser> settledStudents =
-        state.students.where((AppUser student) {
-      final FeeSummary? summary = state.feeSummaryFor(student.id);
-      return summary != null && summary.isPaid;
-    }).toList(growable: false)
-          ..sort((AppUser a, AppUser b) => a.fullName.compareTo(b.fullName));
     final List<AppUser> filteredStudents =
         duesOnly ? dueStudents : state.students;
     final String residentListTitle =
@@ -530,11 +580,13 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
       backgroundColor: Colors.transparent,
       appBar: buildAppBar(
         context,
-        canManageFeeSettings
-            ? 'Fee Control'
-            : canCollectFees
-                ? 'Fee Collection'
-                : 'Fees & Payments',
+        duesOnly
+            ? 'Fees Due'
+            : canManageFeeSettings
+                ? 'Fee Control'
+                : canCollectFees
+                    ? 'Fee Collection'
+                    : 'Fees & Payments',
       ),
       body: AppScreenBackground(
         topChromeHeight: 120,
@@ -542,9 +594,7 @@ class _HostelFeeScreenState extends State<HostelFeeScreen> {
             ? _AdminFeeView(
                 state: state,
                 filteredStudents: filteredStudents,
-                settledStudents: settledStudents,
                 showOnlyDues: duesOnly,
-                activeFilter: feeFilter,
                 residentListTitle: residentListTitle,
                 residentListDescription: residentListDescription,
                 canEditSettings: canManageFeeSettings,

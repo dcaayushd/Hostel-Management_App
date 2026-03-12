@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../theme/button_styles.dart';
 import '../theme/text_theme.dart';
 import '../theme/colors.dart';
 
@@ -150,25 +151,16 @@ class AppTheme {
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
-        style: FilledButton.styleFrom(
-          backgroundColor: AppColors.kGreenColor,
-          foregroundColor: Colors.white,
-          elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
-          ),
-        ),
+        style: AppButtonStyles.filled(brightness),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: primaryText,
-          side: BorderSide(color: border),
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
-          ),
+        style: AppButtonStyles.outlined(
+          brightness,
+          color: isDark ? const Color(0xFF9FDAB7) : AppColors.kDeepGreenColor,
         ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: AppButtonStyles.filled(brightness),
       ),
       cardTheme: CardThemeData(
         color: surface,
@@ -351,6 +343,10 @@ class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor:
               isDark ? const Color(0xFF88D3A7) : AppColors.kGreenColor,
+          textStyle: textTheme.labelLarge?.copyWith(
+            color: isDark ? const Color(0xFF88D3A7) : AppColors.kGreenColor,
+            fontWeight: FontWeight.w700,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14),
           ),

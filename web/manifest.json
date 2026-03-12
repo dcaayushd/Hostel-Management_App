@@ -9,6 +9,11 @@
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
+        { 
+            "src": "/favicon.ico", 
+            "type": "image/x-icon", 
+            "sizes": "16x16 32x32" 
+        },
         {
             "src": "icons/Icon-192.png",
             "sizes": "192x192",

@@ -202,6 +202,7 @@ class _LaundryScreenState extends State<LaundryScreen> {
                     _SummaryPill(
                       label: 'Active',
                       value: activeCount.toString(),
+                      highlighted: activeCount > 0,
                     ),
                   ],
                 ),

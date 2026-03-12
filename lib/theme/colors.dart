@@ -25,7 +25,11 @@ class AppColors {
   static const Color kPrimaryColor = Color(0xFF133B2F);
   static const Color kGreenColor = Color(0xFF2E8B57);
   static const Color kDeepGreenColor = Color(0xFF1F5A45);
-  static const Color kTopInfoAccentColor = Color(0xFF2B6CB0);
+  static const Color kTopInfoAccentColor = kGreenColor;
+  static const Color kSuccessColor = kGreenColor;
+  static const Color kWarningColor = Color(0xFFB54708);
+  static const Color kDangerColor = Color(0xFFB42318);
+  static const Color kDangerStrongColor = Color(0xFFD92D20);
   static const Color kLightBlue = Color(0xFF8AB8D0);
   static const Color kSecondaryColor = Color(0xFF173C32);
   static const Color kMutedTextColor = Color(0xFF5E746C);
@@ -224,5 +228,92 @@ class AppColors {
       ),
       borderFor(brightness),
     );
+  }
+
+  static Color emphasisSurface(
+    Color color,
+    Brightness brightness, {
+    double lightAlpha = 0.08,
+    double darkAlpha = 0.16,
+  }) {
+    return color.withValues(
+      alpha: brightness == Brightness.dark ? darkAlpha : lightAlpha,
+    );
+  }
+
+  static Color emphasisBorder(
+    Color color,
+    Brightness brightness, {
+    double lightAlpha = 0.18,
+    double darkAlpha = 0.30,
+  }) {
+    return color.withValues(
+      alpha: brightness == Brightness.dark ? darkAlpha : lightAlpha,
+    );
+  }
+
+  static Color activeSurfaceFor(
+    Brightness brightness, {
+    Color color = kGreenColor,
+    double lightAlpha = 0.12,
+    double darkAlpha = 0.22,
+  }) {
+    return color.withValues(
+      alpha: brightness == Brightness.dark ? darkAlpha : lightAlpha,
+    );
+  }
+
+  static Color activeBorderFor(
+    Brightness brightness, {
+    Color color = kGreenColor,
+    double lightAlpha = 0.24,
+    double darkAlpha = 0.34,
+  }) {
+    return color.withValues(
+      alpha: brightness == Brightness.dark ? darkAlpha : lightAlpha,
+    );
+  }
+
+  static BoxShadow activeShadow(
+    Brightness brightness, {
+    Color color = kGreenColor,
+    double lightAlpha = 0.14,
+    double darkAlpha = 0.20,
+    double blurRadius = 18,
+    double spreadRadius = 0,
+    Offset offset = const Offset(0, 8),
+  }) {
+    return BoxShadow(
+      color: color.withValues(
+        alpha: brightness == Brightness.dark ? darkAlpha : lightAlpha,
+      ),
+      blurRadius: blurRadius,
+      spreadRadius: spreadRadius,
+      offset: offset,
+    );
+  }
+
+  static Color iconColorFor(
+    Brightness brightness, {
+    Color lightColor = kGreenColor,
+  }) {
+    return brightness == Brightness.dark ? Colors.white : lightColor;
+  }
+
+  static Color iconSurfaceFor(
+    Brightness brightness, {
+    Color lightColor = kGreenColor,
+    double lightAlpha = 0.12,
+    double darkAlpha = 0.12,
+  }) {
+    return brightness == Brightness.dark
+        ? Colors.white.withValues(alpha: darkAlpha)
+        : lightColor.withValues(alpha: lightAlpha);
+  }
+
+  static Color mutedIconFor(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? Colors.white
+        : mutedTextFor(brightness);
   }
 }

@@ -25,7 +25,7 @@ class _SearchStatChip extends StatelessWidget {
           Icon(
             icon,
             size: 16.sp,
-            color: AppColors.kGreenColor,
+            color: AppColors.iconColorFor(brightness),
           ),
           widthSpacer(8),
           Text(

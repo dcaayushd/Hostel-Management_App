@@ -7,15 +7,19 @@ import '../../../app/app_metadata.dart';
 import '../../../app/routes.dart';
 import '../../../common/app_bar.dart';
 import '../../../common/spacing.dart';
+import '../../../core/config/app_environment.dart';
 import '../../../core/models/app_user.dart';
 import '../../../core/models/user_role.dart';
 import '../../../core/services/hostel_repository.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/utils/app_icons.dart';
 import '../../../core/utils/feedback.dart';
+import '../../../core/widgets/app_adaptive_dialog.dart';
+import '../../../core/widgets/backend_endpoint_sheet.dart';
 import '../../../core/widgets/app_screen_background.dart';
 import '../../../core/widgets/app_section_card.dart';
 import '../../../core/widgets/app_top_info_surface.dart';
+import '../../../theme/button_styles.dart';
 import '../../../theme/colors.dart';
 
 part '../widgets/settings_screen_settings_section.dart';
@@ -81,33 +85,6 @@ class SettingsScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  _SettingsActionTile(
-                    title: 'Room access',
-                    subtitle: user.role.isGuest
-                        ? 'Review your resident profile and current access status.'
-                        : 'Open room details, beds, and current availability.',
-                    icon: AppIcons.room,
-                    accentColor: AppColors.kGreenColor,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        user.role.isGuest
-                            ? AppRoutes.profile
-                            : AppRoutes.roomAvailability,
-                      );
-                    },
-                  ),
-                  if (!user.role.isGuest)
-                    _SettingsActionTile(
-                      title: 'Room change requests',
-                      subtitle:
-                          'Track and manage the current room move request flow.',
-                      icon: AppIcons.request,
-                      accentColor: const Color(0xFF4C8E73),
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(AppRoutes.roomChangeRequests);
-                      },
-                    ),
                 ],
               ),
             ),
@@ -175,31 +152,11 @@ class SettingsScreen extends StatelessWidget {
                       state.setNotificationBadgesEnabled(value);
                     },
                   ),
-                  _SettingsActionTile(
-                    title: 'Notification center',
-                    subtitle:
-                        'Review fee reminders, notice updates, chats, and recent alerts.',
-                    icon: AppIcons.notificationsFilled,
-                    accentColor: const Color(0xFF2B6CB0),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.notifications);
-                    },
-                  ),
-                  _SettingsActionTile(
-                    title: 'System notification permissions',
-                    subtitle:
-                        'Banners, lock-screen alerts, and OS-level permission are still managed outside this settings panel.',
-                    icon: AppIcons.support,
-                    accentColor: const Color(0xFF0F766E),
-                    onTap: () {
-                      _showSystemNotificationInfo(context);
-                    },
-                  ),
                 ],
               ),
             ),
             _SettingsSection(
-              title: 'Privacy',
+              title: 'Home Cards',
               child: Column(
                 children: <Widget>[
                   _SettingsSwitchTile(
@@ -222,16 +179,6 @@ class SettingsScreen extends StatelessWidget {
                       state.setShowContactInfoOnCards(value);
                     },
                   ),
-                  _SettingsActionTile(
-                    title: 'Privacy summary',
-                    subtitle:
-                        'See what the card privacy switches change across the app.',
-                    icon: AppIcons.lock,
-                    accentColor: AppColors.kDeepGreenColor,
-                    onTap: () {
-                      _showPrivacySummary(context);
-                    },
-                  ),
                 ],
               ),
             ),
@@ -250,6 +197,17 @@ class SettingsScreen extends StatelessWidget {
                     },
                   ),
                   _SettingsActionTile(
+                    title: 'Backend connection',
+                    subtitle: state.backendBaseUrlLockedByBuild
+                        ? 'Locked by this build to ${state.activeBackendBaseUrl ?? 'the configured backend'}.'
+                        : 'Current server: ${state.activeBackendBaseUrl ?? 'Not configured'}. Change this for LAN testing or a remote server.',
+                    icon: AppIcons.backend,
+                    accentColor: AppColors.kGreenColor,
+                    onTap: () {
+                      _configureBackendConnection(context);
+                    },
+                  ),
+                  _SettingsActionTile(
                     title: 'Reset app preferences',
                     subtitle:
                         'Restore theme, privacy, notification, and sync preferences without touching backend data.',
@@ -259,51 +217,6 @@ class SettingsScreen extends StatelessWidget {
                       _confirmResetPreferences(context);
                     },
                   ),
-                ],
-              ),
-            ),
-            _SettingsSection(
-              title: 'Help & Support',
-              child: Column(
-                children: <Widget>[
-                  _SettingsActionTile(
-                    title: 'Notice board',
-                    subtitle:
-                        'Check announcements, events, and resident updates in one place.',
-                    icon: AppIcons.notice,
-                    accentColor: const Color(0xFF0F766E),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.notices);
-                    },
-                  ),
-                  _SettingsActionTile(
-                    title: 'Chat support',
-                    subtitle:
-                        'Open the hostel conversation feed and reach the support team.',
-                    icon: AppIcons.chat,
-                    accentColor: const Color(0xFF2F6F56),
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.chat);
-                    },
-                  ),
-                  if (!user.role.isGuest)
-                    _SettingsActionTile(
-                      title: user.role.isStudent
-                          ? 'Report an issue'
-                          : 'Issue queue',
-                      subtitle: user.role.isStudent
-                          ? 'Create a maintenance complaint or hostel support issue.'
-                          : 'Review and manage the current issue queue.',
-                      icon: AppIcons.issue,
-                      accentColor: const Color(0xFF3B755E),
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          user.role.isStudent
-                              ? AppRoutes.createIssue
-                              : AppRoutes.issues,
-                        );
-                      },
-                    ),
                 ],
               ),
             ),
@@ -428,10 +341,9 @@ class SettingsScreen extends StatelessWidget {
                       onPressed: () {
                         _confirmPrepareWorkspace(context);
                       },
-                      style: FilledButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFFD92D20).withValues(alpha: 0.10),
-                        foregroundColor: const Color(0xFFD92D20),
+                      style: AppButtonStyles.tonal(
+                        brightness,
+                        color: AppColors.kDangerStrongColor,
                       ),
                       icon: const Icon(AppIcons.workspace),
                       label: const Text('Start Fresh Setup'),
@@ -444,10 +356,9 @@ class SettingsScreen extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 0.h),
               child: FilledButton.tonalIcon(
                 onPressed: state.logout,
-                style: FilledButton.styleFrom(
-                  backgroundColor:
-                      const Color(0xFFD92D20).withValues(alpha: 0.10),
-                  foregroundColor: const Color(0xFFD92D20),
+                style: AppButtonStyles.tonal(
+                  brightness,
+                  color: AppColors.kDangerStrongColor,
                 ),
                 icon: const Icon(AppIcons.logout),
                 label: const Text('Logout'),
@@ -460,28 +371,14 @@ class SettingsScreen extends StatelessWidget {
   }
 
   Future<void> _confirmResetPreferences(BuildContext context) async {
-    final bool? confirmed = await showDialog<bool>(
+    final bool confirmed = await showAppConfirmationDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Reset app preferences'),
-          content: const Text(
-            'This restores theme, notification, privacy, and sync preferences to their default values.',
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Reset'),
-            ),
-          ],
-        );
-      },
+      title: 'Reset app preferences',
+      message:
+          'This restores theme, notification, privacy, and sync preferences to their default values.',
+      confirmLabel: 'Reset',
     );
-    if (confirmed != true || !context.mounted) {
+    if (!confirmed || !context.mounted) {
       return;
     }
     final AppState state = context.read<AppState>();
@@ -492,72 +389,45 @@ class SettingsScreen extends StatelessWidget {
     showAppMessage(context, 'App preferences restored to defaults.');
   }
 
-  Future<void> _showSystemNotificationInfo(BuildContext context) async {
-    await showDialog<void>(
+  Future<void> _configureBackendConnection(BuildContext context) async {
+    final AppState state = context.read<AppState>();
+    final String? result = await showBackendEndpointSheet(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('System notification permissions'),
-          content: const Text(
-            'This build controls app-side notification behavior such as in-app alerts, previews, and badge counts. Device-level banners, lock-screen delivery, and notification-center permissions still need native OS permission wiring to be fully managed here.',
-          ),
-          actions: <Widget>[
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Understood'),
-            ),
-          ],
-        );
-      },
+      initialOverride: state.backendBaseUrlOverride,
+      activeUrl: state.activeBackendBaseUrl,
+      defaultUrlHint: state.backendBaseUrlLockedByBuild
+          ? null
+          : AppEnvironment.defaultDeviceApiBaseUrl,
+      lockedByBuild: state.backendBaseUrlLockedByBuild,
     );
-  }
 
-  Future<void> _showPrivacySummary(BuildContext context) async {
-    await showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Privacy summary'),
-          content: const Text(
-            'Room and contact privacy settings affect shared summary cards such as the dashboard welcome card and the settings header. They do not remove your information from secured backend records or admin-only workflows.',
-          ),
-          actions: <Widget>[
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
+    if (result == null || !context.mounted) {
+      return;
+    }
+
+    await state.setBackendBaseUrlOverride(result.isEmpty ? null : result);
+    if (!context.mounted) {
+      return;
+    }
+
+    showAppMessage(
+      context,
+      result.isEmpty
+          ? 'Backend override cleared. Reopen the app to use the default server.'
+          : 'Backend URL saved. Reopen the app to connect to the new server.',
     );
   }
 
   Future<void> _confirmPrepareWorkspace(BuildContext context) async {
-    final bool? confirmed = await showDialog<bool>(
+    final bool confirmed = await showAppConfirmationDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Prepare clean workspace'),
-          content: const Text(
-            'This removes residents, staff, rooms, notices, payments, requests, and activity history. Your current admin account will be kept.',
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFFD92D20),
-              ),
-              child: const Text('Start fresh'),
-            ),
-          ],
-        );
-      },
+      title: 'Prepare clean workspace',
+      message:
+          'This removes residents, staff, rooms, notices, payments, requests, and activity history. Your current admin account will be kept.',
+      confirmLabel: 'Start fresh',
+      isDestructive: true,
     );
-    if (confirmed != true || !context.mounted) {
+    if (!confirmed || !context.mounted) {
       return;
     }
     try {

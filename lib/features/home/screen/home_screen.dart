@@ -10,7 +10,6 @@ import '../../../app/routes.dart';
 import '../../../common/app_bar.dart';
 import '../../../core/models/admin_catalog.dart';
 import '../../../core/models/app_user.dart';
-import '../../../core/models/chat_message.dart';
 import '../../../core/models/issue_ticket.dart';
 import '../../../core/models/user_role.dart';
 import '../../../core/state/app_state.dart';
@@ -203,11 +202,7 @@ class HomeScreen extends StatelessWidget {
     AppUser user,
     int noticeCount,
   ) {
-    final int unreadMessages = state.chatMessages
-        .where(
-          (ChatMessage item) => item.recipientId == user.id && !item.isRead,
-        )
-        .length;
+    final int unreadMessages = state.unreadChatCount;
     if (user.role == UserRole.student) {
       return <_MetricData>[
         _MetricData(
@@ -299,6 +294,9 @@ class HomeScreen extends StatelessWidget {
           route: AppRoutes.gatePass,
           icon: AppIcons.gatePass,
           color: const Color(0xFFB54708),
+          routeArgs: const GatePassRouteArgs(
+            filter: GatePassScreenFilter.pendingOnly,
+          ),
         ),
         _MetricData(
           title: 'Requests',
@@ -352,6 +350,17 @@ class HomeScreen extends StatelessWidget {
     AppUser user,
     List<AdminServiceShortcut> shortcuts,
   ) {
+    final String? alertsCount = _countTextOrNull(state.unreadNotificationCount);
+    final String? chatCount = _countTextOrNull(state.unreadChatCount);
+    final String? laundryCount = _countTextOrNull(state.activeLaundryCount);
+    final String? gatePassCount = _countTextOrNull(state.activeGatePassCount);
+    final String? roomRequestCount =
+        _countTextOrNull(state.pendingRoomRequestCount);
+    final String? parcelCount = _countTextOrNull(state.pendingParcelCount);
+    final String? frontDeskCount =
+        _countTextOrNull(state.frontDeskAttentionCount);
+    final String? gateQueueCount = _countTextOrNull(state.pendingGatePassCount);
+
     late final List<_DashboardAction> baseActions;
     if (user.role == UserRole.student) {
       baseActions = <_DashboardAction>[
@@ -375,6 +384,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.notifications,
           route: AppRoutes.notifications,
           color: const Color(0xFF3B755E),
+          countText: alertsCount,
         ),
         _DashboardAction(
           title: 'Chat',
@@ -382,13 +392,15 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.chat,
           route: AppRoutes.chat,
           color: const Color(0xFF2F6F56),
+          countText: chatCount,
         ),
         _DashboardAction(
           title: 'Laundry',
           subtitle: 'Bookings',
           icon: AppIcons.laundry,
           route: AppRoutes.laundry,
-          color: const Color(0xFF2B6CB0),
+          color: AppColors.kGreenColor,
+          countText: laundryCount,
         ),
         _DashboardAction(
           title: 'Gate Pass',
@@ -396,6 +408,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.gatePass,
           route: AppRoutes.gatePass,
           color: const Color(0xFFB54708),
+          countText: gatePassCount,
         ),
         _DashboardAction(
           title: 'Mess',
@@ -409,7 +422,8 @@ class HomeScreen extends StatelessWidget {
           subtitle: 'Desk',
           icon: AppIcons.parcel,
           route: AppRoutes.parcelDesk,
-          color: const Color(0xFF2B6CB0),
+          color: AppColors.kGreenColor,
+          countText: parcelCount,
         ),
         _DashboardAction(
           title: 'Notice',
@@ -431,6 +445,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.request,
           route: AppRoutes.roomChangeRequests,
           color: const Color(0xFF4C8E73),
+          countText: roomRequestCount,
         ),
       ];
     } else if (user.role == UserRole.guest) {
@@ -441,6 +456,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.notifications,
           route: AppRoutes.notifications,
           color: const Color(0xFF3B755E),
+          countText: alertsCount,
         ),
         _DashboardAction(
           title: 'Notice',
@@ -455,6 +471,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.chat,
           route: AppRoutes.chat,
           color: const Color(0xFF2F6F56),
+          countText: chatCount,
         ),
       ];
     } else {
@@ -502,6 +519,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.notifications,
           route: AppRoutes.notifications,
           color: const Color(0xFF0F766E),
+          countText: alertsCount,
         ),
         _DashboardAction(
           title: 'Chat',
@@ -509,6 +527,7 @@ class HomeScreen extends StatelessWidget {
           icon: AppIcons.chat,
           route: AppRoutes.chat,
           color: const Color(0xFF2F6F56),
+          countText: chatCount,
         ),
         if (user.canManageLaundry)
           _DashboardAction(
@@ -516,7 +535,8 @@ class HomeScreen extends StatelessWidget {
             subtitle: 'Queue',
             icon: AppIcons.laundry,
             route: AppRoutes.laundry,
-            color: const Color(0xFF2B6CB0),
+            color: AppColors.kGreenColor,
+            countText: laundryCount,
           ),
         if (user.canCollectFees)
           _DashboardAction(
@@ -547,7 +567,8 @@ class HomeScreen extends StatelessWidget {
             subtitle: 'Parcels & visitors',
             icon: AppIcons.parcel,
             route: AppRoutes.parcelDesk,
-            color: const Color(0xFF2B6CB0),
+            color: AppColors.kGreenColor,
+            countText: frontDeskCount,
           ),
         if (user.canManageGatePass)
           _DashboardAction(
@@ -556,6 +577,7 @@ class HomeScreen extends StatelessWidget {
             icon: AppIcons.gatePass,
             route: AppRoutes.gatePass,
             color: const Color(0xFFB54708),
+            countText: gateQueueCount,
           ),
         if (user.canManageRoomRequests)
           _DashboardAction(
@@ -564,6 +586,7 @@ class HomeScreen extends StatelessWidget {
             icon: AppIcons.request,
             route: AppRoutes.roomChangeRequests,
             color: const Color(0xFF4C8E73),
+            countText: roomRequestCount,
           ),
         if (user.canManageInventory)
           _DashboardAction(
@@ -621,5 +644,9 @@ class HomeScreen extends StatelessWidget {
     return digits.replaceAllMapped(groupPattern, (Match match) {
       return '${match[1]},';
     });
+  }
+
+  String? _countTextOrNull(int value) {
+    return value > 0 ? value.toString() : null;
   }
 }

@@ -28,14 +28,32 @@ class _MealToggleChip extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
           decoration: BoxDecoration(
             color: selected
-                ? AppColors.kGreenColor.withValues(alpha: 0.10)
+                ? AppColors.activeSurfaceFor(
+                    brightness,
+                    color: AppColors.kGreenColor,
+                    lightAlpha: 0.12,
+                    darkAlpha: 0.20,
+                  )
                 : surfaceColor,
             borderRadius: BorderRadius.circular(16.r),
             border: Border.all(
               color: selected
-                  ? AppColors.kGreenColor.withValues(alpha: 0.32)
+                  ? AppColors.activeBorderFor(
+                      brightness,
+                      color: AppColors.kGreenColor,
+                    )
                   : AppColors.outlineFor(brightness),
             ),
+            boxShadow: selected
+                ? <BoxShadow>[
+                    AppColors.activeShadow(
+                      brightness,
+                      color: AppColors.kGreenColor,
+                      blurRadius: 14,
+                      offset: const Offset(0, 6),
+                    ),
+                  ]
+                : null,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,

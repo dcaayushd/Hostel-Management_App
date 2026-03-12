@@ -34,7 +34,6 @@ class AppDropdownField<T> extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final Brightness brightness = theme.brightness;
     final Color textColor = AppColors.primaryTextFor(brightness);
-    final Color mutedColor = AppColors.mutedTextFor(brightness);
     final Color fillColor = AppColors.tonalSurfaceFor(brightness);
 
     final InputDecoration resolvedDecoration =
@@ -66,7 +65,7 @@ class AppDropdownField<T> extends StatelessWidget {
       ),
       icon: Icon(
         Icons.keyboard_arrow_down_rounded,
-        color: mutedColor,
+        color: AppColors.mutedIconFor(brightness),
       ),
       decoration: resolvedDecoration,
       dropdownColor: AppColors.surfaceColor(brightness),

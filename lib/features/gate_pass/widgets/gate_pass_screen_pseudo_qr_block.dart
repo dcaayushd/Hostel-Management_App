@@ -26,7 +26,7 @@ class _PseudoQrBlock extends StatelessWidget {
           final bool active = ((value + index) % 3) != 0;
           return Container(
             decoration: BoxDecoration(
-              color: active ? AppColors.kSecondaryColor : Colors.white,
+              color: active ? AppColors.kGreenColor : Colors.white,
               borderRadius: BorderRadius.circular(2.r),
             ),
           );
@@ -45,21 +45,21 @@ String? _requiredField(String? value) {
 
 Color _statusColor(GatePassRequest pass) {
   if (pass.isLateNow) {
-    return const Color(0xFFD92D20);
+    return AppColors.kDangerStrongColor;
   }
   switch (pass.status) {
     case GatePassStatus.pending:
-      return const Color(0xFFB54708);
+      return AppColors.kWarningColor;
     case GatePassStatus.approved:
-      return const Color(0xFF2B6CB0);
+      return AppColors.kGreenColor;
     case GatePassStatus.rejected:
-      return const Color(0xFFD92D20);
+      return AppColors.kDangerStrongColor;
     case GatePassStatus.checkedOut:
-      return const Color(0xFFB54708);
+      return AppColors.kWarningColor;
     case GatePassStatus.returned:
       return AppColors.kGreenColor;
     case GatePassStatus.late:
-      return const Color(0xFFD92D20);
+      return AppColors.kDangerStrongColor;
   }
 }
 

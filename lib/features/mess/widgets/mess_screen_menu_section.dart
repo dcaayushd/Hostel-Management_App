@@ -40,6 +40,7 @@ class _MenuSection extends StatelessWidget {
                     ? 'Today'
                     : highlightedDay.label,
                 color: const Color(0xFF0F766E),
+                emphasized: highlightedDay == _todayDay(),
               ),
             ],
           ),

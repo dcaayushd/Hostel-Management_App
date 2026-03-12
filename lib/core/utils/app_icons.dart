@@ -75,6 +75,7 @@ class AppIcons {
   static const IconData category = CupertinoIcons.square_list;
   static const IconData menu = CupertinoIcons.list_bullet;
   static const IconData adminCatalog = CupertinoIcons.slider_horizontal_3;
+  static const IconData backend = CupertinoIcons.dot_radiowaves_left_right;
 
   static IconData forNotificationType(HostelNotificationType type) {
     switch (type) {

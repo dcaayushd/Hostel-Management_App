@@ -311,7 +311,7 @@ class _SearchScreenState extends State<SearchScreen> {
             section: 'Quick access',
             route: AppRoutes.staff,
             icon: AppIcons.staff,
-            accentColor: Color(0xFF2B6CB0),
+            accentColor: AppColors.kGreenColor,
             searchTerms: 'staff directory employees workers',
           ),
         ]);
@@ -325,7 +325,7 @@ class _SearchScreenState extends State<SearchScreen> {
             section: 'Quick access',
             route: AppRoutes.staff,
             icon: AppIcons.staff,
-            accentColor: Color(0xFF2B6CB0),
+            accentColor: AppColors.kGreenColor,
             searchTerms: 'staff directory employees workers team',
           ),
         );
@@ -493,7 +493,7 @@ class _SearchScreenState extends State<SearchScreen> {
           section: 'Laundry',
           route: AppRoutes.laundry,
           icon: AppIcons.laundry,
-          accentColor: const Color(0xFF2B6CB0),
+          accentColor: AppColors.kGreenColor,
           searchTerms:
               '${booking.machineLabel} ${booking.slotLabel} ${booking.notes} ${booking.status.label} laundry',
         ),

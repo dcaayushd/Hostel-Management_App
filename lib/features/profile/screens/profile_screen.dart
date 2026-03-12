@@ -11,9 +11,11 @@ import '../../../core/services/hostel_repository.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/utils/app_icons.dart';
 import '../../../core/utils/feedback.dart';
+import '../../../core/widgets/app_adaptive_dialog.dart';
 import '../../../core/widgets/app_screen_background.dart';
 import '../../../core/widgets/app_section_card.dart';
 import '../../../core/widgets/user_hero_card.dart';
+import '../../../theme/button_styles.dart';
 import '../../../theme/colors.dart';
 
 part '../widgets/profile_screen_widgets.dart';
@@ -183,14 +185,9 @@ class ProfileScreen extends StatelessWidget {
                       onPressed: () {
                         _confirmPrepareWorkspace(context);
                       },
-                      style: FilledButton.styleFrom(
-                        backgroundColor:
-                            const Color(0xFFD92D20).withValues(alpha: 0.08),
-                        foregroundColor: const Color(0xFFD92D20),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 14.w,
-                          vertical: 12.h,
-                        ),
+                      style: AppButtonStyles.tonal(
+                        brightness,
+                        color: AppColors.kDangerStrongColor,
                       ),
                       icon: const Icon(AppIcons.workspace),
                       label: const Text('Start Fresh Setup'),
@@ -205,32 +202,16 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Future<void> _confirmPrepareWorkspace(BuildContext context) async {
-    final bool? confirmed = await showDialog<bool>(
+    final bool confirmed = await showAppConfirmationDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Prepare clean workspace'),
-          content: const Text(
-            'This removes residents, staff, rooms, notices, payments, requests, and activity history. Your current admin account will be kept.',
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFFD92D20),
-              ),
-              child: const Text('Continue'),
-            ),
-          ],
-        );
-      },
+      title: 'Prepare clean workspace',
+      message:
+          'This removes residents, staff, rooms, notices, payments, requests, and activity history. Your current admin account will be kept.',
+      confirmLabel: 'Continue',
+      isDestructive: true,
     );
 
-    if (confirmed != true || !context.mounted) {
+    if (!confirmed || !context.mounted) {
       return;
     }
 

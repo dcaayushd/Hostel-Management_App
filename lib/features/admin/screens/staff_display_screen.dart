@@ -11,11 +11,13 @@ import '../../../core/services/hostel_repository.dart';
 import '../../../core/state/app_state.dart';
 import '../../../core/utils/app_icons.dart';
 import '../../../core/utils/feedback.dart';
+import '../../../core/widgets/app_adaptive_dialog.dart';
 import '../../../core/widgets/app_empty_state.dart';
 import '../../../core/widgets/app_feature_banner.dart';
 import '../../../core/widgets/app_screen_background.dart';
 import '../../../core/widgets/app_section_card.dart';
 import '../../../core/widgets/status_chip.dart';
+import '../../../theme/button_styles.dart';
 import '../../../theme/colors.dart';
 
 part '../widgets/staff_display_screen_widgets.dart';
@@ -198,12 +200,9 @@ class StaffDisplayScreen extends StatelessWidget {
                                     onPressed: () {
                                       _deleteStaff(context, member);
                                     },
-                                    style: OutlinedButton.styleFrom(
-                                      foregroundColor: const Color(0xFFB42318),
-                                      side: const BorderSide(
-                                        color: Color(0x40B42318),
-                                      ),
-                                      backgroundColor: const Color(0x14B42318),
+                                    style: AppButtonStyles.outlined(
+                                      Theme.of(context).brightness,
+                                      color: AppColors.kDangerColor,
                                     ),
                                     icon: const Icon(Icons.person_remove_alt_1),
                                     label: const Text('Remove access'),
@@ -222,32 +221,16 @@ class StaffDisplayScreen extends StatelessWidget {
   }
 
   Future<void> _deleteStaff(BuildContext context, AppUser member) async {
-    final bool? confirmed = await showDialog<bool>(
+    final bool confirmed = await showAppConfirmationDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Delete staff account'),
-          content: Text(
-            'Remove ${member.fullName} from the staff directory and login list?',
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFFB42318),
-              ),
-              child: const Text('Delete'),
-            ),
-          ],
-        );
-      },
+      title: 'Delete staff account',
+      message:
+          'Remove ${member.fullName} from the staff directory and login list?',
+      confirmLabel: 'Delete',
+      isDestructive: true,
     );
 
-    if (confirmed != true || !context.mounted) {
+    if (!confirmed || !context.mounted) {
       return;
     }
 

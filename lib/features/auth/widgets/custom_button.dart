@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../theme/colors.dart';
-import '../../../theme/text_theme.dart';
+import '../../../theme/button_styles.dart';
 
 part 'custom_button_parts.dart';
 

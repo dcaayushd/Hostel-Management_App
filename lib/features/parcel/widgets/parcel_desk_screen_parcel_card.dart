@@ -13,9 +13,8 @@ class _ParcelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color accent = parcel.status.isPending
-        ? const Color(0xFF2B6CB0)
-        : AppColors.kGreenColor;
+    final Color accent =
+        parcel.status.isPending ? AppColors.kGreenColor : AppColors.kGreenColor;
     final Brightness brightness = Theme.of(context).brightness;
     return Container(
       padding: EdgeInsets.all(10.w),
@@ -79,7 +78,7 @@ class _ParcelCard extends StatelessWidget {
                 Text(
                   'Resident notified',
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: const Color(0xFF2B6CB0),
+                        color: AppColors.kGreenColor,
                         fontWeight: FontWeight.w700,
                       ),
                 ),

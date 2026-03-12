@@ -20,6 +20,7 @@ class _AdminResidentFeeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FeeSummary? dues = summary;
+    final bool hasUnpaidDues = dues != null && !dues.isPaid;
     return Container(
       margin: EdgeInsets.only(bottom: 10.h),
       padding: EdgeInsets.all(12.w),
@@ -101,31 +102,72 @@ class _AdminResidentFeeTile extends StatelessWidget {
             ],
           ),
           heightSpacer(12),
-          Wrap(
-            spacing: 8.w,
-            runSpacing: 8.h,
+          Column(
             children: <Widget>[
-              if (dues != null && !dues.isPaid)
-                FilledButton.icon(
-                  onPressed: onCollectFee,
-                  icon: const Icon(Icons.payments_outlined),
-                  label: const Text('Collect'),
+              if (hasUnpaidDues)
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: FilledButton.icon(
+                        onPressed: onCollectFee,
+                        style: _actionButtonStyle(
+                          context,
+                          FilledButtonTheme.of(context).style,
+                        ),
+                        icon: const Icon(Icons.payments_outlined),
+                        label: const Text('Collect'),
+                      ),
+                    ),
+                    widthSpacer(10),
+                    Expanded(
+                      child: OutlinedButton.icon(
+                        onPressed: onSendReminder,
+                        style: _actionButtonStyle(
+                          context,
+                          OutlinedButtonTheme.of(context).style,
+                        ),
+                        icon: const Icon(Icons.notifications_active_outlined),
+                        label: const Text('Remind'),
+                      ),
+                    ),
+                  ],
                 ),
-              if (dues != null && !dues.isPaid)
-                OutlinedButton.icon(
-                  onPressed: onSendReminder,
-                  icon: const Icon(Icons.notifications_active_outlined),
-                  label: const Text('Remind'),
+              if (hasUnpaidDues) heightSpacer(10),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  onPressed: onOpenChat,
+                  style: _actionButtonStyle(
+                    context,
+                    OutlinedButtonTheme.of(context).style,
+                  ),
+                  icon: const Icon(Icons.chat_bubble_outline_rounded),
+                  label: const Text('Chat'),
                 ),
-              OutlinedButton.icon(
-                onPressed: onOpenChat,
-                icon: const Icon(Icons.chat_bubble_outline_rounded),
-                label: const Text('Chat'),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  ButtonStyle _actionButtonStyle(
+    BuildContext context,
+    ButtonStyle? baseStyle,
+  ) {
+    final TextStyle textStyle =
+        Theme.of(context).textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                ) ??
+            const TextStyle(fontWeight: FontWeight.w700);
+
+    return (baseStyle ?? const ButtonStyle()).copyWith(
+      minimumSize: WidgetStatePropertyAll<Size>(Size(0, 54.h)),
+      padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+        EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+      ),
+      textStyle: WidgetStatePropertyAll<TextStyle>(textStyle),
     );
   }
 }

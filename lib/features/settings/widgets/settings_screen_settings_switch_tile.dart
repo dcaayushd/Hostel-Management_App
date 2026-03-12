@@ -33,12 +33,12 @@ class _SettingsSwitchTile extends StatelessWidget {
             height: 38.h,
             width: 38.w,
             decoration: BoxDecoration(
-              color: AppColors.kGreenColor.withValues(alpha: 0.12),
+              color: AppColors.iconSurfaceFor(brightness),
               borderRadius: BorderRadius.circular(14.r),
             ),
             child: Icon(
               icon,
-              color: AppColors.kGreenColor,
+              color: AppColors.iconColorFor(brightness),
               size: 18.sp,
             ),
           ),

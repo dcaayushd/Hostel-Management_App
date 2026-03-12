@@ -41,6 +41,32 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _configureBackendConnection() async {
+    final AppState state = context.read<AppState>();
+    final String? result = await showBackendEndpointSheet(
+      context: context,
+      initialOverride: state.backendBaseUrlOverride,
+      activeUrl: state.activeBackendBaseUrl,
+      defaultUrlHint: state.backendBaseUrlLockedByBuild
+          ? null
+          : AppEnvironment.defaultDeviceApiBaseUrl,
+      lockedByBuild: state.backendBaseUrlLockedByBuild,
+    );
+    if (!mounted || result == null) {
+      return;
+    }
+    await state.setBackendBaseUrlOverride(result.isEmpty ? null : result);
+    if (!mounted) {
+      return;
+    }
+    showAppMessage(
+      context,
+      result.isEmpty
+          ? 'Backend override cleared. Reopen the app to use the default server.'
+          : 'Backend URL saved. Reopen the app to connect to the new server.',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final AppState state = context.watch<AppState>();
@@ -163,6 +189,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: const Text('Register'),
                                 ),
                               ],
+                            ),
+                            heightSpacer(4),
+                            Center(
+                              child: TextButton.icon(
+                                onPressed: _configureBackendConnection,
+                                icon: const Icon(AppIcons.backend),
+                                label: const Text('Backend connection'),
+                              ),
                             ),
                           ],
                         ),

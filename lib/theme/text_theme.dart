@@ -1,54 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'colors.dart';
-
 class AppTextTheme {
+  AppTextTheme._();
+
   static TextStyle kAppBarStyle = GoogleFonts.inter(
-    color: AppColors.kSecondaryColor,
     fontWeight: FontWeight.w600,
     fontSize: 26,
   );
 
   static TextStyle kLabelStyle = GoogleFonts.inter(
-    color: AppColors.kSecondaryColor,
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
 
   static TextStyle kPrimaryStyle = GoogleFonts.inter(
-    color: AppColors.kSecondaryColor,
     fontWeight: FontWeight.w500,
     fontSize: 14,
   );
 
-  static TextStyle kHintStyle = GoogleFonts.poppins(
-    color: const Color(0xFFA9A9B7),
+  static TextStyle kHintStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
 
   static TextStyle kButtonStyle = GoogleFonts.inter(
-    color: AppColors.kSecondaryColor,
     fontWeight: FontWeight.w500,
     fontSize: 14,
   );
 
-  static TextStyle kSocialTextStyle = GoogleFonts.roboto(
-    color: AppColors.kPrimaryColor,
+  static TextStyle kSocialTextStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w500,
     fontSize: 16,
     height: 18.75 / 16,
   );
 
-  static TextStyle dmTextStyle = GoogleFonts.poppins(
-    color: const Color(0xFF9091AD),
+  static TextStyle dmTextStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
 
-  static TextStyle kChatStyle = GoogleFonts.manrope(
-    color: const Color(0xFF0B2C47),
+  static TextStyle kChatStyle = GoogleFonts.inter(
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
@@ -97,7 +89,7 @@ class AppTextTheme {
     double? height,
     double? letterSpacing,
   }) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.inter(
       textStyle: base,
       color: color,
       fontWeight: fontWeight,

@@ -61,6 +61,7 @@ class _StudentMessView extends StatelessWidget {
                   StatusChip(
                     label: today.label,
                     color: AppColors.kGreenColor,
+                    emphasized: true,
                   ),
                 ],
               ),
