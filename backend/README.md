@@ -216,7 +216,7 @@ cp backend/data/hostel.db backend/data/hostel-backup.db
 - Docker image for deployment:
 
 ```bash
-docker build -f backend/Dockerfile -t hostel-backend .
+docker build -f backend/Dockerfile -t hostel-backend backend
 ```
 
 ## Remaining production upgrades

@@ -8,13 +8,18 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-RUN mkdir -p /app/backend /data
+COPY . /tmp/src
 
-COPY backend/__init__.py /app/backend/__init__.py
-COPY backend/manage.py /app/backend/manage.py
-COPY backend/repository.py /app/backend/repository.py
-COPY backend/schema.sql /app/backend/schema.sql
-COPY backend/server.py /app/backend/server.py
+RUN mkdir -p /app/backend /data && \
+    if [ -f /tmp/src/server.py ]; then \
+      cp -R /tmp/src/. /app/backend/; \
+    elif [ -f /tmp/src/backend/server.py ]; then \
+      cp -R /tmp/src/backend/. /app/backend/; \
+    else \
+      echo "Backend sources not found in Docker build context." >&2; \
+      exit 1; \
+    fi && \
+    rm -rf /tmp/src /app/backend/__pycache__ /app/backend/data /app/backend/tests
 
 VOLUME ["/data"]
 
