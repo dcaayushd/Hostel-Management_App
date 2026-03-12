@@ -23,6 +23,9 @@ class MyFormField extends StatelessWidget {
   final TextCapitalization? inputCapitalization;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
+  final Iterable<String>? autofillHints;
+  final VoidCallback? onTap;
+  final bool? enabled;
 
   const MyFormField({
     super.key,
@@ -55,17 +58,23 @@ class MyFormField extends StatelessWidget {
     this.readOnly,
     this.initialValue,
     this.inputCapitalization,
+    this.autofillHints,
+    this.onTap,
+    this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       initialValue: initialValue,
       readOnly: readOnly ?? false,
       maxLength: maxLength,
       maxLines: maxLines,
       minLines: minLines,
       onChanged: onChanged,
+      onTap: onTap,
+      autofillHints: autofillHints,
       controller: controller,
       validator: validator,
       autocorrect: autocorrect ?? false,

@@ -1,240 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import '../../../common/app_bar.dart';
-import '../../../common/constants.dart';
-import '../../../common/spacing.dart';
+import 'package:provider/provider.dart';
 
-class HostelFeeScreen extends StatelessWidget {
+import '../../../app/app_chrome.dart';
+import '../../../app/route_args.dart';
+import '../../../app/routes.dart';
+import '../../../common/app_bar.dart';
+import '../../../common/custom_text_field.dart';
+import '../../../common/spacing.dart';
+import '../../../core/models/app_user.dart';
+import '../../../core/models/fee_charge_item.dart';
+import '../../../core/models/fee_settings.dart';
+import '../../../core/models/fee_summary.dart';
+import '../../../core/models/payment_record.dart';
+import '../../../core/services/hostel_repository.dart';
+import '../../../core/state/app_state.dart';
+import '../../../core/utils/app_validators.dart';
+import '../../../core/utils/feedback.dart';
+import '../../../core/widgets/app_empty_state.dart';
+import '../../../core/widgets/app_screen_background.dart';
+import '../../../core/widgets/app_section_card.dart';
+import '../../../core/widgets/app_top_info_surface.dart';
+import '../../../core/widgets/status_chip.dart';
+import '../../../features/auth/widgets/custom_button.dart';
+import '../../../theme/colors.dart';
+
+part 'hostel_fee_screen_parts.dart';
+part '../widgets/hostel_fee_screen_student_fee_view.dart';
+part '../widgets/hostel_fee_screen_admin_fee_view.dart';
+part '../widgets/hostel_fee_screen_student_fee_hero.dart';
+part '../widgets/hostel_fee_screen_reminder_card.dart';
+part '../widgets/hostel_fee_screen_payment_review_sheet.dart';
+part '../widgets/hostel_fee_screen_payment_progress_dialog.dart';
+part '../widgets/hostel_fee_screen_payment_method_tile.dart';
+part '../widgets/hostel_fee_screen_payment_history_tile.dart';
+part '../widgets/hostel_fee_screen_admin_resident_fee_tile.dart';
+part '../widgets/hostel_fee_screen_admin_payment_tile.dart';
+part '../widgets/hostel_fee_screen_receipt_sheet.dart';
+part '../widgets/hostel_fee_screen_hero_chip.dart';
+part '../widgets/hostel_fee_screen_section_title.dart';
+part '../widgets/hostel_fee_screen_progress_strip.dart';
+part '../widgets/hostel_fee_screen_fee_field.dart';
+part '../widgets/hostel_fee_screen_fee_row.dart';
+
+class HostelFeeScreen extends StatefulWidget {
   const HostelFeeScreen({
     super.key,
+    this.routeArgs,
   });
 
+  final FeeScreenRouteArgs? routeArgs;
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        'Hostel Fees',
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              heightSpacer(20),
-              SvgPicture.asset(
-                AppConstants.hostel,
-                height: 200.h,
-              ),
-              heightSpacer(40),
-              Container(
-                width: double.maxFinite,
-                decoration: ShapeDecoration(
-                  color: const Color(0x4C2E8B57),
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                      width: 4,
-                      strokeAlign: BorderSide.strokeAlignOutside,
-                      color: Color(0xFF2E8857),
-                    ),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  shadows: const [
-                    BoxShadow(
-                      color: Color(0x332E8B57),
-                      blurRadius: 8,
-                      offset: Offset(1, 4),
-                      spreadRadius: 0,
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      heightSpacer(20),
-                      Text(
-                        'Hostel Details',
-                        style: TextStyle(
-                          color: const Color(0xFF333333),
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      heightSpacer(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Block No.',
-                                style: TextStyle(
-                                  color: const Color(0xFF464646),
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const Text(
-                                ' : B',
-                                style: TextStyle(
-                                  color: Color(0xFF464646),
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Room No.',
-                                style: TextStyle(
-                                  color: const Color(0xFF464646),
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const Text(
-                                ' : 413',
-                                style: TextStyle(
-                                  color: Color(0xFF464646),
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      heightSpacer(20),
-                      const Text(
-                        'Payment Details ',
-                        style: TextStyle(
-                          color: Color(0xFF333333),
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      heightSpacer(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Maintenance charge : ',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            'Rs. 1245',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      heightSpacer(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Parking charge : ',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            'Rs. 435',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      heightSpacer(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Room water charge : ',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            'Rs. 560',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      heightSpacer(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Room charge : ',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            'Rs. 1560',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      heightSpacer(20),
-                      const Divider(
-                        color: Colors.black,
-                      ),
-                      heightSpacer(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total Amount : ',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Text(
-                            'Rs. 3800',
-                            style: TextStyle(
-                              color: const Color(0xFF464646),
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ],
-                      ),
-                      heightSpacer(30),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  State<HostelFeeScreen> createState() => _HostelFeeScreenState();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'colors.dart';
 
 class AppTextTheme {
@@ -20,11 +21,13 @@ class AppTextTheme {
     fontWeight: FontWeight.w500,
     fontSize: 14,
   );
+
   static TextStyle kHintStyle = GoogleFonts.poppins(
     color: const Color(0xFFA9A9B7),
     fontWeight: FontWeight.w400,
     fontSize: 14,
   );
+
   static TextStyle kButtonStyle = GoogleFonts.inter(
     color: AppColors.kSecondaryColor,
     fontWeight: FontWeight.w500,
@@ -35,7 +38,7 @@ class AppTextTheme {
     color: AppColors.kPrimaryColor,
     fontWeight: FontWeight.w500,
     fontSize: 16,
-    height: 18.75,
+    height: 18.75 / 16,
   );
 
   static TextStyle dmTextStyle = GoogleFonts.poppins(
@@ -43,11 +46,66 @@ class AppTextTheme {
     fontWeight: FontWeight.w500,
     fontSize: 16,
   );
+
   static TextStyle kChatStyle = GoogleFonts.manrope(
-      color: const Color(0xFF0B2C47),
-      fontWeight: FontWeight.w500,
-      fontSize: 16,
-      height: 0);
+    color: const Color(0xFF0B2C47),
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+  );
+
+  static TextStyle displayStyle(
+    TextStyle? base, {
+    Color? color,
+    FontWeight? fontWeight,
+    double? fontSize,
+    double? height,
+    double? letterSpacing,
+  }) {
+    return GoogleFonts.inter(
+      textStyle: base,
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle bodyStyle(
+    TextStyle? base, {
+    Color? color,
+    FontWeight? fontWeight,
+    double? fontSize,
+    double? height,
+    double? letterSpacing,
+  }) {
+    return GoogleFonts.inter(
+      textStyle: base,
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  static TextStyle captionStyle(
+    TextStyle? base, {
+    Color? color,
+    FontWeight? fontWeight,
+    double? fontSize,
+    double? height,
+    double? letterSpacing,
+  }) {
+    return GoogleFonts.poppins(
+      textStyle: base,
+      color: color,
+      fontWeight: fontWeight,
+      fontSize: fontSize,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
 
   static TextTheme lightTextTheme = const TextTheme();
   static TextTheme darkTextTheme = const TextTheme();

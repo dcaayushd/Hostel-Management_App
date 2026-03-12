@@ -16,6 +16,13 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextStyle? hintStyle;
   final Function(String)? onChanged;
+  final bool? readOnly;
+  final int? maxLength;
+  final TextInputAction? inputAction;
+  final TextCapitalization? inputCapitalization;
+  final Iterable<String>? autofillHints;
+  final VoidCallback? onTap;
+  final bool? enabled;
 
   const CustomTextField({
     super.key,
@@ -35,61 +42,64 @@ class CustomTextField extends StatelessWidget {
     this.focusedBorder,
     this.enabledBorder,
     this.onChanged,
+    this.readOnly,
+    this.maxLength,
+    this.inputAction,
+    this.inputCapitalization,
+    this.autofillHints,
+    this.onTap,
+    this.enabled,
   });
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final decorationTheme = theme.inputDecorationTheme;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           MyFormField(
-            enabledBorder: enabledBorder ??
-                OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: AppColors.kGreenColor,
-                  ),
-                  borderRadius: BorderRadius.circular(14),
-                ),
+            enabledBorder: enabledBorder ?? decorationTheme.enabledBorder,
             maxLines: maxLines ?? 1,
             minLines: minLines ?? 1,
             controller: controller,
             validator: validator,
             inputFilled: true,
-            inputFillColor: inputFillColor ?? AppColors.kLight,
+            inputFillColor: inputFillColor ??
+                decorationTheme.fillColor ??
+                AppColors.tonalSurfaceFor(theme.brightness),
             inputHint: inputHint,
+            readOnly: readOnly,
             obscureText: obscureText,
             inputKeyboardType: inputKeyBoardType,
+            maxLength: maxLength,
+            inputAction: inputAction,
+            inputCapitalization: inputCapitalization,
+            autofillHints: autofillHints,
+            onTap: onTap,
+            enabled: enabled,
             contentPadding: const EdgeInsets.only(
-              top: 10,
-              left: 19,
-              right: 22,
-              bottom: 10,
+              top: 14,
+              left: 16,
+              right: 18,
+              bottom: 14,
             ),
-            border: border ??
-                OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: AppColors.kGreenColor,
-                  ),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-            focusedBorder: focusedBorder ??
-                OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: AppColors.kGreenColor, width: 1.5),
-                  borderRadius: BorderRadius.circular(14),
-                ),
+            border: border ?? decorationTheme.border,
+            focusedBorder: focusedBorder ?? decorationTheme.focusedBorder,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: suffixIcon,
             ),
             onChanged: onChanged,
             prefixIcon: prefixIcon,
-            inputTextStyle: AppTextTheme.kPrimaryStyle,
-            inputHintStyle: hintStyle ?? AppTextTheme.kHintStyle,
+            inputTextStyle:
+                theme.textTheme.bodyLarge ?? AppTextTheme.kPrimaryStyle,
+            inputHintStyle: hintStyle ??
+                decorationTheme.hintStyle ??
+                AppTextTheme.kHintStyle,
           ),
-          // AppSizing.h04
         ],
       ),
     );
